@@ -1,0 +1,71 @@
+# .harness/environments/pcf.yaml
+# DEV
+environment:
+  name: PCF_Dev
+  identifier: PCF_Dev
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  type: PreProduction
+  tags:
+    PCF_Deployment: "true"
+---
+infrastructureDefinition:
+  name: pcf_dev_space
+  identifier: pcf_dev_space
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  environmentRef: PCF_Dev
+  type: TAS
+  spec:
+    connectorRef: my_pcf_connector   # CF/TAS connector in Harness
+    organization: my-org             # CF/TAS org
+    space: dev                       # CF/TAS space
+    releaseName: webapp-dev
+
+---
+# QA
+environment:
+  name: PCF_QA
+  identifier: PCF_QA
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  type: PreProduction
+  tags:
+    PCF_Deployment: "true"
+---
+infrastructureDefinition:
+  name: pcf_qa_space
+  identifier: pcf_qa_space
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  environmentRef: PCF_QA
+  type: TAS
+  spec:
+    connectorRef: my_pcf_connector
+    organization: my-org
+    space: qa
+    releaseName: webapp-qa
+
+---
+# PROD
+environment:
+  name: PCF_Prod
+  identifier: PCF_Prod
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  type: Production
+  tags:
+    PCF_Deployment: "true"
+---
+infrastructureDefinition:
+  name: pcf_prod_space
+  identifier: pcf_prod_space
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  environmentRef: PCF_Prod
+  type: TAS
+  spec:
+    connectorRef: my_pcf_connector
+    organization: my-org
+    space: prod
+    releaseName: webapp
