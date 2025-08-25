@@ -1,0 +1,10 @@
+service:
+  name: Javahosting_Nitro_Application_Test_Deployments_zero_downtime
+  identifier: Javahosting_Nitro_Application_Test_Deployments_zero_downtime
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    Nitro_Zero_Downtime: 'true'
+  serviceDefinition:
+    type: Ssh
+    spec: {}

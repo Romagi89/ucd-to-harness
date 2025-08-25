@@ -1,0 +1,10 @@
+service:
+  name: 1930_Informatica_PowerCenter_DeploymentGroup
+  identifier: _1930_Informatica_PowerCenter_DeploymentGroup
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    Informatica_Deployment_Group: 'true'
+  serviceDefinition:
+    type: Ssh
+    spec: {}

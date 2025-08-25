@@ -1,0 +1,10 @@
+service:
+  name: Javahosting_Nitro_Application_Test_Deployments_Web_Content
+  identifier: Javahosting_Nitro_Application_Test_Deployments_Web_Content
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    Nitro_Web: 'true'
+  serviceDefinition:
+    type: Ssh
+    spec: {}

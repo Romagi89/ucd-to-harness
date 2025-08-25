@@ -1,0 +1,10 @@
+service:
+  name: Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
+  identifier: Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    Windows_Config_Deploy: 'true'
+  serviceDefinition:
+    type: WinRm
+    spec: {}

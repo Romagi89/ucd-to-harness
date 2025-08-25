@@ -1,0 +1,113 @@
+pipeline:
+  name: Informatica PowerCenter - deploy
+  identifier: Informatica_PowerCenter_deploy
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    bsa: Enterprise Data Office
+    org: Technology Enterprise Solutions
+    ci_name: Informatica PowerCenter
+    appId: '1930'
+    criticality: critical
+    regulated: 'true'
+  stages:
+  - stage:
+      name: 1930_DPS_Deploy_Multiple_Deployment_Groups
+      identifier: _1930_DPS_Deploy_Multiple_Deployment_Groups
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: _1930_DPS_Deploy_Multiple_Deployment_Groups
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Deploy_Multiple_Deployment_Groups"'
+  - stage:
+      name: 1930_DPS_Folder_Migration
+      identifier: _1930_DPS_Folder_Migration
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: _1930_DPS_Folder_Migration
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Folder_Migration"'
+  - stage:
+      name: 1930_DPS_Import_Objects
+      identifier: _1930_DPS_Import_Objects
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: _1930_DPS_Import_Objects
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Import_Objects"'
+  - stage:
+      name: 1930_Informatica_PowerCenter_DeploymentGroup
+      identifier: _1930_Informatica_PowerCenter_DeploymentGroup
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: _1930_Informatica_PowerCenter_DeploymentGroup
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: 1930_Informatica_PowerCenter_DeploymentGroup"'
