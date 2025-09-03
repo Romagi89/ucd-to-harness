@@ -25,6 +25,26 @@ pipeline:
           - identifier: <+input>
         execution:
           steps:
+          - stepGroup:
+              name: Java/Gradle Build
+              identifier: Java_Gradle_Build_Invocation
+              template:
+                templateRef: Java_Gradle_Build
+                versionLabel: v1
+                templateInputs:
+                  variables:
+                  - name: workingDir
+                    type: String
+                    value: .
+                  - name: gradleTasks
+                    type: String
+                    value: clean build
+                  - name: extraArgs
+                    type: String
+                    value: ''
+                  - name: javaHome
+                    type: String
+                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -50,6 +70,26 @@ pipeline:
           - identifier: <+input>
         execution:
           steps:
+          - stepGroup:
+              name: Java/Gradle Build
+              identifier: Java_Gradle_Build_Invocation
+              template:
+                templateRef: Java_Gradle_Build
+                versionLabel: v1
+                templateInputs:
+                  variables:
+                  - name: workingDir
+                    type: String
+                    value: .
+                  - name: gradleTasks
+                    type: String
+                    value: clean build
+                  - name: extraArgs
+                    type: String
+                    value: ''
+                  - name: javaHome
+                    type: String
+                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -75,6 +115,26 @@ pipeline:
           - identifier: <+input>
         execution:
           steps:
+          - stepGroup:
+              name: Java/Gradle Build
+              identifier: Java_Gradle_Build_Invocation
+              template:
+                templateRef: Java_Gradle_Build
+                versionLabel: v1
+                templateInputs:
+                  variables:
+                  - name: workingDir
+                    type: String
+                    value: .
+                  - name: gradleTasks
+                    type: String
+                    value: clean build
+                  - name: extraArgs
+                    type: String
+                    value: ''
+                  - name: javaHome
+                    type: String
+                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -100,6 +160,26 @@ pipeline:
           - identifier: <+input>
         execution:
           steps:
+          - stepGroup:
+              name: Java/Gradle Build
+              identifier: Java_Gradle_Build_Invocation
+              template:
+                templateRef: Java_Gradle_Build
+                versionLabel: v1
+                templateInputs:
+                  variables:
+                  - name: workingDir
+                    type: String
+                    value: .
+                  - name: gradleTasks
+                    type: String
+                    value: clean build
+                  - name: extraArgs
+                    type: String
+                    value: ''
+                  - name: javaHome
+                    type: String
+                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
