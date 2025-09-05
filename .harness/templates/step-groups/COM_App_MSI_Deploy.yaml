@@ -1,0 +1,30 @@
+template:
+  name: COM App MSI Deploy
+  identifier: COM_App_MSI_Deploy
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: msiPath
+        type: String
+        value: <+input>
+      - name: installArgs
+        type: String
+        value: <+input>.default('/qn /norestart')
+    steps:
+      - step:
+          name: Install COM App
+          identifier: InstallComApp
+          type: ShellScript
+          spec:
+            shell: PowerShell
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  $msi = "<+stepGroup.variables.msiPath>"
+                  $args = "<+stepGroup.variables.installArgs>"
+                  if (-not (Test-Path $msi)) { throw "MSI not found: $msi" }
+                  $p = Start-Process msiexec.exe -ArgumentList "/i `"$msi`" $args" -Wait -PassThru
+                  if ($p.ExitCode -ne 0) { throw "MSI failed with exit code $($p.ExitCode)" }

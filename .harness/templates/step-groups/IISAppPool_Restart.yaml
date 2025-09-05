@@ -1,0 +1,24 @@
+template:
+  name: IIS AppPool Restart
+  identifier: IISAppPool_Restart
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: appPool
+        type: String
+        value: <+input>
+    steps:
+      - step:
+          name: Restart AppPool
+          identifier: RestartAppPool
+          type: ShellScript
+          spec:
+            shell: PowerShell
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  Import-Module WebAdministration
+                  Restart-WebAppPool "<+stepGroup.variables.appPool>"

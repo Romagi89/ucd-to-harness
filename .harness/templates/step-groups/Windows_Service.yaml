@@ -1,0 +1,31 @@
+template:
+  name: Windows Service Control
+  identifier: Windows_Service
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: serviceName
+        type: String
+        value: <+input>
+      - name: action
+        type: String
+        value: <+input>.default('restart') # stop|start|restart
+    steps:
+      - step:
+          name: Control Service
+          identifier: ControlService
+          type: ShellScript
+          spec:
+            shell: PowerShell
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  $name = "<+stepGroup.variables.serviceName>"
+                  $act = "<+stepGroup.variables.action>"
+                  if ($act -eq "restart") { Restart-Service -Name $name -Force -ErrorAction Stop }
+                  elseif ($act -eq "stop") { Stop-Service -Name $name -Force -ErrorAction Stop }
+                  elseif ($act -eq "start") { Start-Service -Name $name -ErrorAction Stop }
+                  else { throw "Unknown action: $act" }

@@ -1,0 +1,43 @@
+template:
+  name: Java Gradle Build
+  identifier: Java_Gradle_Build
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: workingDir
+        type: String
+        value: <+input>.default('.')
+      - name: gradleTasks
+        type: String
+        value: <+input>.default('clean build')
+      - name: extraArgs
+        type: String
+        value: <+input>.default('')
+      - name: javaHome
+        type: String
+        value: <+input>.default('')
+    steps:
+      - step:
+          name: Gradle Build
+          identifier: Gradle_Build
+          type: ShellScript
+          spec:
+            shell: Bash
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  set -euo pipefail
+                  if [ -n "<+stepGroup.variables.javaHome>" ]; then
+                    export JAVA_HOME="<+stepGroup.variables.javaHome>"
+                    export PATH="$JAVA_HOME/bin:$PATH"
+                  fi
+                  cd "<+stepGroup.variables.workingDir>"
+                  if [ -x ./gradlew ]; then
+                    chmod +x ./gradlew
+                    ./gradlew <+stepGroup.variables.gradleTasks> <+stepGroup.variables.extraArgs>
+                  else
+                    gradle <+stepGroup.variables.gradleTasks> <+stepGroup.variables.extraArgs>
+                  fi

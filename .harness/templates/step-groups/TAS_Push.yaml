@@ -1,0 +1,31 @@
+template:
+  name: TAS Push
+  identifier: TAS_Push
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: manifestPath
+        type: String
+        value: <+input>.default('manifest.yml')
+      - name: cfSpace
+        type: String
+        value: <+input>
+      - name: cfOrg
+        type: String
+        value: <+input>
+    steps:
+      - step:
+          name: cf push
+          identifier: cf_push
+          type: ShellScript
+          spec:
+            shell: Bash
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  set -euo pipefail
+                  cf target -o "<+stepGroup.variables.cfOrg>" -s "<+stepGroup.variables.cfSpace>"
+                  cf push -f "<+stepGroup.variables.manifestPath>"

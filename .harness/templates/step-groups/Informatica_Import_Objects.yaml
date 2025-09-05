@@ -1,0 +1,45 @@
+template:
+  name: Informatica Import Objects
+  identifier: Informatica_Import_Objects
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: repo
+        type: String
+        value: <+input>
+      - name: domain
+        type: String
+        value: <+input>
+      - name: host
+        type: String
+        value: <+input>
+      - name: port
+        type: String
+        value: <+input>.default('6005')
+      - name: user
+        type: String
+        value: <+input>
+      - name: password
+        type: Secret
+        value: <+input>
+      - name: objectsListPath
+        type: String
+        value: <+input>
+    steps:
+      - step:
+          name: pmrep import
+          identifier: pmrep_import
+          type: ShellScript
+          spec:
+            shell: Bash
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  set -euo pipefail
+                  pmrep connect -r "<+stepGroup.variables.repo>" -d "<+stepGroup.variables.domain>" \
+                    -h "<+stepGroup.variables.host>" -o "<+stepGroup.variables.port>" \
+                    -n "<+stepGroup.variables.user>" -x "<+stepGroup.variables.password>"
+                  pmrep objectimport -i "<+stepGroup.variables.objectsListPath>" -c -r -u

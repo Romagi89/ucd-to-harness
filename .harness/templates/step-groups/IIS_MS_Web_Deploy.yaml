@@ -1,0 +1,57 @@
+template:
+  name: IIS MS Web Deploy
+  identifier: IIS_MS_Web_Deploy
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: packagePath
+        type: String
+        value: <+input>
+      - name: siteName
+        type: String
+        value: <+input>
+      - name: appPool
+        type: String
+        value: <+input>.default('')
+      - name: extraMsDeployArgs
+        type: String
+        value: <+input>.default('')
+    steps:
+      - step:
+          name: Deploy with msdeploy
+          identifier: MsDeploy
+          type: ShellScript
+          spec:
+            shell: PowerShell
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  $pkg = "<+stepGroup.variables.packagePath>"
+                  $site = "<+stepGroup.variables.siteName>"
+                  $args = "<+stepGroup.variables.extraMsDeployArgs>"
+                  if (Test-Path $pkg) {
+                    & "$Env:ProgramFiles\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
+                      -verb:sync -source:package="$pkg" -dest:auto,computerName="localhost" `
+                      -setParam:name="IIS Web Application Name",value="$site" $args
+                  } else {
+                    throw "Package not found: $pkg"
+                  }
+      - step:
+          name: Optional AppPool Recycle
+          identifier: AppPoolRecycle
+          type: ShellScript
+          spec:
+            shell: PowerShell
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  $pool = "<+stepGroup.variables.appPool>"
+                  if ($pool -ne "") {
+                    Import-Module WebAdministration
+                    Restart-WebAppPool $pool
+                  }

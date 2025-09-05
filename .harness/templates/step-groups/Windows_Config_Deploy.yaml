@@ -1,0 +1,30 @@
+template:
+  name: Windows Config Deploy
+  identifier: Windows_Config_Deploy
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: sourcePath
+        type: String
+        value: <+input>
+      - name: destinationPath
+        type: String
+        value: <+input>
+    steps:
+      - step:
+          name: Copy Config
+          identifier: CopyConfig
+          type: ShellScript
+          spec:
+            shell: PowerShell
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  $src = "<+stepGroup.variables.sourcePath>"
+                  $dst = "<+stepGroup.variables.destinationPath>"
+                  if (-not (Test-Path $src)) { throw "Config not found: $src" }
+                  New-Item -ItemType Directory -Force -Path (Split-Path $dst) | Out-Null
+                  Copy-Item -Path $src -Destination $dst -Recurse -Force

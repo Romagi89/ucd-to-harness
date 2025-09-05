@@ -1,0 +1,71 @@
+templates:
+  - name: Java Gradle Build
+    templateRef: Java_Gradle_Build
+    versionLabel: v1
+    type: StepGroup
+    match:
+      any_regex: ['\bgradle\b','\bjava\b','\.jar\b','\.war\b']
+
+  - name: IIS MS Web Deploy
+    templateRef: IIS_MS_Web_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['IIS_MS_Web_Deploy', 'IIS', 'Windows Web-Content']
+
+  - name: Windows MSI Deploy
+    templateRef: MSI_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['MSI_Deploy']
+
+  - name: Windows Service Control
+    templateRef: Windows_Service
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['Windows_Service']
+
+  - name: Windows Config Deploy
+    templateRef: Windows_Config_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['Windows_Config_Deploy']
+
+  - name: COM App MSI Deploy
+    templateRef: COM_App_MSI_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['COM_App_MSI_Deploy', 'Windows_COM']
+
+  - name: COM Proxy MSI Deploy
+    templateRef: COM_Proxy_MSI_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['COM_Proxy_MSI_Deploy']
+
+  - name: IIS AppPool Restart
+    templateRef: IISAppPool_Restart
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['IISAppPool']
+
+  - name: Informatica Import Objects
+    templateRef: Informatica_Import_Objects
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any:
+        ['Informatica_Import_Objects','Informatica_Deployment_Group','Informatica_Folder_Migration','Informatica_Multiple_Deployment_Group']
+
+  - name: TAS Push
+    templateRef: TAS_Push
+    versionLabel: v1
+    type: StepGroup
+    match:
+      any_regex: ['\bpcf\b','\btanzu\b','cloud foundry','\btas\b']
