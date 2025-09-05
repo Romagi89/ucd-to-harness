@@ -10,11 +10,13 @@
 
 How to use
 pip install pyyaml
-python ucd_to_harness.py \
-  --input ucd_export.json \
+python Scripts/ucd_to_harness.py \                                         
+  --input raw_files/ucd-0822.json \
   --out harness_out \
-  --org my_org \
-  --project my_project
+  --org my_org --project my_project \
+  --gradle-template-ref Java_Gradle_Build \
+  --gradle-template-version v1 \
+  --gradle-match "java|gradle|jar|war"
 
 
 This will generate:
