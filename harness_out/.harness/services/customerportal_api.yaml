@@ -1,0 +1,11 @@
+service:
+  name: customerportal-api
+  identifier: customerportal_api
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    language: java
+    build: gradle
+  serviceDefinition:
+    type: Ssh
+    spec: {}

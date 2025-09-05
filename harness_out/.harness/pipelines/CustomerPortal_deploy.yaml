@@ -1,0 +1,145 @@
+pipeline:
+  name: CustomerPortal - deploy
+  identifier: CustomerPortal_deploy
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    bsa: Customer Solutions
+    language: java
+    build: gradle
+  stages:
+  - stage:
+      name: customerportal-api
+      identifier: customerportal_api
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: customerportal_api
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - stepGroup:
+              name: Java/Gradle Build
+              identifier: Java_Gradle_Build_Invocation
+              template:
+                templateRef: Java_Gradle_Build
+                versionLabel: v1
+                templateInputs:
+                  variables:
+                  - name: workingDir
+                    type: String
+                    value: .
+                  - name: gradleTasks
+                    type: String
+                    value: clean build
+                  - name: extraArgs
+                    type: String
+                    value: ''
+                  - name: javaHome
+                    type: String
+                    value: ''
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: customerportal-api"'
+  - stage:
+      name: customerportal-batch
+      identifier: customerportal_batch
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: customerportal_batch
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - stepGroup:
+              name: Java/Gradle Build
+              identifier: Java_Gradle_Build_Invocation
+              template:
+                templateRef: Java_Gradle_Build
+                versionLabel: v1
+                templateInputs:
+                  variables:
+                  - name: workingDir
+                    type: String
+                    value: .
+                  - name: gradleTasks
+                    type: String
+                    value: clean build
+                  - name: extraArgs
+                    type: String
+                    value: ''
+                  - name: javaHome
+                    type: String
+                    value: ''
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: customerportal-batch"'
+  - stage:
+      name: customerportal-web
+      identifier: customerportal_web
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: customerportal_web
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - stepGroup:
+              name: Java/Gradle Build
+              identifier: Java_Gradle_Build_Invocation
+              template:
+                templateRef: Java_Gradle_Build
+                versionLabel: v1
+                templateInputs:
+                  variables:
+                  - name: workingDir
+                    type: String
+                    value: .
+                  - name: gradleTasks
+                    type: String
+                    value: clean build
+                  - name: extraArgs
+                    type: String
+                    value: ''
+                  - name: javaHome
+                    type: String
+                    value: ''
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: customerportal-web"'

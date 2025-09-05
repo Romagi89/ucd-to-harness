@@ -1,0 +1,12 @@
+service:
+  name: orderops-web
+  identifier: orderops_web
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    runtime: dotnet
+    IIS: 'true'
+    deploy: iis
+  serviceDefinition:
+    type: WinRm
+    spec: {}

@@ -1,0 +1,10 @@
+service:
+  name: Windows_Service_Dummy
+  identifier: Windows_Service_Dummy
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    Windows_Service: 'true'
+  serviceDefinition:
+    type: WinRm
+    spec: {}

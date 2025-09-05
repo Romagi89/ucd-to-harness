@@ -1,0 +1,10 @@
+service:
+  name: Restart_AppPool
+  identifier: Restart_AppPool
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    IISAppPool: 'true'
+  serviceDefinition:
+    type: WinRm
+    spec: {}

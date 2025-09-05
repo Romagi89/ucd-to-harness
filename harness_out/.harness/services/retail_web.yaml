@@ -1,0 +1,10 @@
+service:
+  name: retail-web
+  identifier: retail_web
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    tanzu: 'true'
+  serviceDefinition:
+    type: TAS
+    spec: {}

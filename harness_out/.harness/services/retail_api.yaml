@@ -1,0 +1,11 @@
+service:
+  name: retail-api
+  identifier: retail_api
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    platform: pcf
+    spring: 'true'
+  serviceDefinition:
+    type: TAS
+    spec: {}

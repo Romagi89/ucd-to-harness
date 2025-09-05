@@ -1,0 +1,10 @@
+service:
+  name: orderops-agent
+  identifier: orderops_agent
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    MSI_Deploy: 'true'
+  serviceDefinition:
+    type: WinRm
+    spec: {}

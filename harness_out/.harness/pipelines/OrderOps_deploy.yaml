@@ -1,20 +1,19 @@
 pipeline:
-  name: Informatica PowerCenter - deploy
-  identifier: Informatica_PowerCenter_deploy
+  name: OrderOps - deploy
+  identifier: OrderOps_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
   tags:
-    bsa: Enterprise Data Office
-    ci_name: Informatica PowerCenter
+    runtime: dotnet
   stages:
   - stage:
-      name: 1930_DPS_Import_Objects
-      identifier: _1930_DPS_Import_Objects
+      name: orderops-web
+      identifier: orderops_web
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: WinRm
         service:
-          serviceRef: _1930_DPS_Import_Objects
+          serviceRef: orderops_web
         environment:
           environmentRef: <+input>
           infrastructureDefinitions:
@@ -26,20 +25,21 @@ pipeline:
               identifier: Deploy
               type: ShellScript
               spec:
-                shell: Bash
+                shell: PowerShell
                 onDelegate: true
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Import_Objects"'
+                    script: 'Write-Host "TODO: implement deployment for component:
+                      orderops-web"'
   - stage:
-      name: 1930_Informatica_PowerCenter_DeploymentGroup
-      identifier: _1930_Informatica_PowerCenter_DeploymentGroup
+      name: orderops-worker
+      identifier: orderops_worker
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: WinRm
         service:
-          serviceRef: _1930_Informatica_PowerCenter_DeploymentGroup
+          serviceRef: orderops_worker
         environment:
           environmentRef: <+input>
           infrastructureDefinitions:
@@ -51,20 +51,21 @@ pipeline:
               identifier: Deploy
               type: ShellScript
               spec:
-                shell: Bash
+                shell: PowerShell
                 onDelegate: true
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_Informatica_PowerCenter_DeploymentGroup"'
+                    script: 'Write-Host "TODO: implement deployment for component:
+                      orderops-worker"'
   - stage:
-      name: 1930_DPS_Folder_Migration
-      identifier: _1930_DPS_Folder_Migration
+      name: orderops-agent
+      identifier: orderops_agent
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: WinRm
         service:
-          serviceRef: _1930_DPS_Folder_Migration
+          serviceRef: orderops_agent
         environment:
           environmentRef: <+input>
           infrastructureDefinitions:
@@ -76,20 +77,21 @@ pipeline:
               identifier: Deploy
               type: ShellScript
               spec:
-                shell: Bash
+                shell: PowerShell
                 onDelegate: true
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Folder_Migration"'
+                    script: 'Write-Host "TODO: implement deployment for component:
+                      orderops-agent"'
   - stage:
-      name: 1930_DPS_Deploy_Multiple_Deployment_Groups
-      identifier: _1930_DPS_Deploy_Multiple_Deployment_Groups
+      name: orderops-config
+      identifier: orderops_config
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: WinRm
         service:
-          serviceRef: _1930_DPS_Deploy_Multiple_Deployment_Groups
+          serviceRef: orderops_config
         environment:
           environmentRef: <+input>
           infrastructureDefinitions:
@@ -101,9 +103,10 @@ pipeline:
               identifier: Deploy
               type: ShellScript
               spec:
-                shell: Bash
+                shell: PowerShell
                 onDelegate: true
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Deploy_Multiple_Deployment_Groups"'
+                    script: 'Write-Host "TODO: implement deployment for component:
+                      orderops-config"'

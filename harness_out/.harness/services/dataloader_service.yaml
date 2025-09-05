@@ -1,0 +1,11 @@
+service:
+  name: dataloader-service
+  identifier: dataloader_service
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    language: python
+    python: venv
+  serviceDefinition:
+    type: Ssh
+    spec: {}

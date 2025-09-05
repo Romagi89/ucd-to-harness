@@ -1,0 +1,10 @@
+service:
+  name: datapipe-cli
+  identifier: datapipe_cli
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    language: python
+  serviceDefinition:
+    type: Ssh
+    spec: {}

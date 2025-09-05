@@ -1,0 +1,58 @@
+pipeline:
+  name: DataIngestor - deploy
+  identifier: DataIngestor_deploy
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    language: python
+  stages:
+  - stage:
+      name: dataloader-service
+      identifier: dataloader_service
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: dataloader_service
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: dataloader-service"'
+  - stage:
+      name: datapipe-cli
+      identifier: datapipe_cli
+      type: Deployment
+      spec:
+        deploymentType: Ssh
+        service:
+          serviceRef: datapipe_cli
+        environment:
+          environmentRef: <+input>
+          infrastructureDefinitions:
+          - identifier: <+input>
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo "TODO: implement deployment for component: datapipe-cli"'

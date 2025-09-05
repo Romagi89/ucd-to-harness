@@ -1,0 +1,51 @@
+templates:
+  # Java / Gradle
+  - name: Java Gradle Build
+    templateRef: Java_Gradle_Build
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['language:java','build:gradle']
+      any_regex: ['\bgradle\b','\.jar\b','\.war\b']
+
+  # Python app (venv + install + run)
+  - name: Python App Deploy
+    templateRef: Python_App_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['language:python','python:venv']
+      any_regex: ['\bpython\b','flask','django']
+
+  # .NET build/publish
+  - name: .NET Build & Publish
+    templateRef: DotNet_Build_Publish
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['runtime:dotnet','dotnet']
+      any_regex: ['\.csproj\b','\.sln\b','\bdotnet\b']
+
+  # IIS deploy (WinRM)
+  - name: IIS MS Web Deploy
+    templateRef: IIS_MS_Web_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['deploy:iis','IIS','IIS_MS_Web_Deploy','Windows Web-Content']
+
+  # Windows Service control (WinRM)
+  - name: Windows Service Control
+    templateRef: Windows_Service
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['Windows_Service']
+
+  # MSI install (WinRM)
+  - name: Windows MSI Deploy
+    templateRef: MSI_Deploy
+    versionLabel: v1
+    type: StepGroup
+    match:
+      tags_any: ['MSI_Deploy']

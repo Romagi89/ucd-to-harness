@@ -1,0 +1,50 @@
+template:
+  name: Python App Deploy
+  identifier: Python_App_Deploy
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: workingDir
+        type: String
+        value: <+input>.default('.')
+      - name: requirementsPath
+        type: String
+        value: <+input>.default('requirements.txt')
+      - name: entryPoint
+        type: String
+        value: <+input>.default('python app.py')
+    steps:
+      - step:
+          name: Setup venv & Install
+          identifier: VenvInstall
+          type: ShellScript
+          spec:
+            shell: Bash
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  set -euo pipefail
+                  cd "<+stepGroup.variables.workingDir>"
+                  python3 -m venv .venv
+                  . ./.venv/bin/activate
+                  if [ -f "<+stepGroup.variables.requirementsPath>" ]; then
+                    pip install -r "<+stepGroup.variables.requirementsPath>"
+                  fi
+      - step:
+          name: Run App
+          identifier: RunApp
+          type: ShellScript
+          spec:
+            shell: Bash
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  set -euo pipefail
+                  cd "<+stepGroup.variables.workingDir>"
+                  . ./.venv/bin/activate
+                  eval "<+stepGroup.variables.entryPoint>"

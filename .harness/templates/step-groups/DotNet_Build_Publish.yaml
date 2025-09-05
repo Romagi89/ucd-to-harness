@@ -1,0 +1,50 @@
+template:
+  name: .NET Build & Publish
+  identifier: DotNet_Build_Publish
+  versionLabel: v1
+  type: StepGroup
+  spec:
+    variables:
+      - name: projectPath
+        type: String
+        value: <+input>.default('.')
+      - name: configuration
+        type: String
+        value: <+input>.default('Release')
+      - name: outputDir
+        type: String
+        value: <+input>.default('publish')
+      - name: runtime
+        type: String
+        value: <+input>.default('')
+    steps:
+      - step:
+          name: dotnet restore
+          identifier: DotnetRestore
+          type: ShellScript
+          spec:
+            shell: Bash
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  set -euo pipefail
+                  dotnet restore "<+stepGroup.variables.projectPath>"
+      - step:
+          name: dotnet publish
+          identifier: DotnetPublish
+          type: ShellScript
+          spec:
+            shell: Bash
+            onDelegate: true
+            source:
+              type: Inline
+              spec:
+                script: |
+                  set -euo pipefail
+                  if [ -n "<+stepGroup.variables.runtime>" ]; then
+                    dotnet publish "<+stepGroup.variables.projectPath>" -c "<+stepGroup.variables.configuration>" -o "<+stepGroup.variables.outputDir>" -r "<+stepGroup.variables.runtime>" --self-contained false
+                  else
+                    dotnet publish "<+stepGroup.variables.projectPath>" -c "<+stepGroup.variables.configuration>" -o "<+stepGroup.variables.outputDir>"
+                  fi

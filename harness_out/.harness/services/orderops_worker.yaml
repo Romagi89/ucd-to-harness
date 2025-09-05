@@ -1,0 +1,11 @@
+service:
+  name: orderops-worker
+  identifier: orderops_worker
+  orgIdentifier: my_org
+  projectIdentifier: my_project
+  tags:
+    runtime: dotnet
+    Windows_Service: 'true'
+  serviceDefinition:
+    type: WinRm
+    spec: {}

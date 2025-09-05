@@ -1,7 +1,0 @@
-environment:
-  name: PCF_Dev
-  identifier: PCF_Dev
-  orgIdentifier: my_org
-  projectIdentifier: my_project
-  type: PreProduction
-  tags: {}

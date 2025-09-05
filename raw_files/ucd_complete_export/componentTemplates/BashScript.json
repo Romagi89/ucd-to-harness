@@ -1,7 +1,0 @@
-{
-  "name": "BashScript",
-  "description": "Run arbitrary bash script via Shell",
-  "defaultProperties": {
-    "shell": "/bin/bash"
-  }
-}

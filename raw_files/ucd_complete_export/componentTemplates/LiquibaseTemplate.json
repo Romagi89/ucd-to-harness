@@ -1,7 +1,0 @@
-{
-  "name": "LiquibaseTemplate",
-  "description": "Run Liquibase change sets",
-  "defaultProperties": {
-    "jdbcUrl": "jdbc:postgresql://db:5432/bank"
-  }
-}

@@ -30,7 +30,6 @@ template:
               spec:
                 script: |
                   set -euo pipefail
-                  # Optional JAVA_HOME override
                   if [ -n "<+stepGroup.variables.javaHome>" ]; then
                     export JAVA_HOME="<+stepGroup.variables.javaHome>"
                     export PATH="$JAVA_HOME/bin:$PATH"

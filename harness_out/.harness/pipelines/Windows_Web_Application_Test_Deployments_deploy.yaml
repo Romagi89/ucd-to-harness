@@ -3,16 +3,17 @@ pipeline:
   identifier: Windows_Web_Application_Test_Deployments_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
-  tags: {}
+  tags:
+    bsa: Cloud Operations
   stages:
   - stage:
-      name: PH37507_test
-      identifier: PH37507_test
+      name: IIS_Web_Package
+      identifier: IIS_Web_Package
       type: Deployment
       spec:
         deploymentType: WinRm
         service:
-          serviceRef: PH37507_test
+          serviceRef: IIS_Web_Package
         environment:
           environmentRef: <+input>
           infrastructureDefinitions:
@@ -30,15 +31,15 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'Write-Host "TODO: implement deployment for component:
-                      PH37507_test"'
+                      IIS_Web_Package"'
   - stage:
-      name: Windows_Web_Application_Test_Deployments_COM
-      identifier: Windows_Web_Application_Test_Deployments_COM
+      name: Restart_AppPool
+      identifier: Restart_AppPool
       type: Deployment
       spec:
         deploymentType: WinRm
         service:
-          serviceRef: Windows_Web_Application_Test_Deployments_COM
+          serviceRef: Restart_AppPool
         environment:
           environmentRef: <+input>
           infrastructureDefinitions:
@@ -56,15 +57,15 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_COM"'
+                      Restart_AppPool"'
   - stage:
-      name: Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_App
-      identifier: Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_App
+      name: Windows_Service_Dummy
+      identifier: Windows_Service_Dummy
       type: Deployment
       spec:
         deploymentType: WinRm
         service:
-          serviceRef: Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_App
+          serviceRef: Windows_Service_Dummy
         environment:
           environmentRef: <+input>
           infrastructureDefinitions:
@@ -82,186 +83,4 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_App"'
-  - stage:
-      name: Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_Proxy
-      identifier: Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_Proxy
-      type: Deployment
-      spec:
-        deploymentType: WinRm
-        service:
-          serviceRef: Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_Proxy
-        environment:
-          environmentRef: <+input>
-          infrastructureDefinitions:
-          - identifier: <+input>
-        execution:
-          steps:
-          - step:
-              name: Deploy
-              identifier: Deploy
-              type: ShellScript
-              spec:
-                shell: PowerShell
-                onDelegate: true
-                source:
-                  type: Inline
-                  spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_Proxy"'
-  - stage:
-      name: Windows_Web_Application_Test_Deployments_UCD_IIS_App_Restart_Test
-      identifier: Windows_Web_Application_Test_Deployments_UCD_IIS_App_Restart_Test
-      type: Deployment
-      spec:
-        deploymentType: WinRm
-        service:
-          serviceRef: Windows_Web_Application_Test_Deployments_UCD_IIS_App_Restart_Test
-        environment:
-          environmentRef: <+input>
-          infrastructureDefinitions:
-          - identifier: <+input>
-        execution:
-          steps:
-          - step:
-              name: Deploy
-              identifier: Deploy
-              type: ShellScript
-              spec:
-                shell: PowerShell
-                onDelegate: true
-                source:
-                  type: Inline
-                  spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_UCD_IIS_App_Restart_Test"'
-  - stage:
-      name: Windows_Web_Application_Test_Deployments_UCD_IIS_Site_Restart_Test
-      identifier: Windows_Web_Application_Test_Deployments_UCD_IIS_Site_Restart_Test
-      type: Deployment
-      spec:
-        deploymentType: WinRm
-        service:
-          serviceRef: Windows_Web_Application_Test_Deployments_UCD_IIS_Site_Restart_Test
-        environment:
-          environmentRef: <+input>
-          infrastructureDefinitions:
-          - identifier: <+input>
-        execution:
-          steps:
-          - step:
-              name: Deploy
-              identifier: Deploy
-              type: ShellScript
-              spec:
-                shell: PowerShell
-                onDelegate: true
-                source:
-                  type: Inline
-                  spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_UCD_IIS_Site_Restart_Test"'
-  - stage:
-      name: Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test
-      identifier: Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test
-      type: Deployment
-      spec:
-        deploymentType: WinRm
-        service:
-          serviceRef: Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test
-        environment:
-          environmentRef: <+input>
-          infrastructureDefinitions:
-          - identifier: <+input>
-        execution:
-          steps:
-          - step:
-              name: Deploy
-              identifier: Deploy
-              type: ShellScript
-              spec:
-                shell: PowerShell
-                onDelegate: true
-                source:
-                  type: Inline
-                  spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test"'
-  - stage:
-      name: Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
-      identifier: Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
-      type: Deployment
-      spec:
-        deploymentType: WinRm
-        service:
-          serviceRef: Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
-        environment:
-          environmentRef: <+input>
-          infrastructureDefinitions:
-          - identifier: <+input>
-        execution:
-          steps:
-          - step:
-              name: Deploy
-              identifier: Deploy
-              type: ShellScript
-              spec:
-                shell: PowerShell
-                onDelegate: true
-                source:
-                  type: Inline
-                  spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test"'
-  - stage:
-      name: Windows_Web_Application_Test_Deployments_UCD_Windows_Web_App_Test
-      identifier: Windows_Web_Application_Test_Deployments_UCD_Windows_Web_App_Test
-      type: Deployment
-      spec:
-        deploymentType: WinRm
-        service:
-          serviceRef: Windows_Web_Application_Test_Deployments_UCD_Windows_Web_App_Test
-        environment:
-          environmentRef: <+input>
-          infrastructureDefinitions:
-          - identifier: <+input>
-        execution:
-          steps:
-          - step:
-              name: Deploy
-              identifier: Deploy
-              type: ShellScript
-              spec:
-                shell: PowerShell
-                onDelegate: true
-                source:
-                  type: Inline
-                  spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_UCD_Windows_Web_App_Test"'
-  - stage:
-      name: Windows_Web_Application_Test_Deployments_Windows_Service
-      identifier: Windows_Web_Application_Test_Deployments_Windows_Service
-      type: Deployment
-      spec:
-        deploymentType: WinRm
-        service:
-          serviceRef: Windows_Web_Application_Test_Deployments_Windows_Service
-        environment:
-          environmentRef: <+input>
-          infrastructureDefinitions:
-          - identifier: <+input>
-        execution:
-          steps:
-          - step:
-              name: Deploy
-              identifier: Deploy
-              type: ShellScript
-              spec:
-                shell: PowerShell
-                onDelegate: true
-                source:
-                  type: Inline
-                  spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Web_Application_Test_Deployments_Windows_Service"'
+                      Windows_Service_Dummy"'
