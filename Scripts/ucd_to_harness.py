@@ -243,7 +243,6 @@ def match_stepgroups_for_component(app_name: str,
 
     return matched
 
-
 # -----------------------
 # DeploymentType heuristic
 # -----------------------
