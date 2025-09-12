@@ -1,5 +1,5 @@
 pipeline:
-  name: CustomerPortal - deploy
+  name: CustomerPortal deploy
   identifier: CustomerPortal_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
@@ -9,39 +9,20 @@ pipeline:
     build: gradle
   stages:
   - stage:
-      name: customerportal-api
-      identifier: customerportal_api
+      name: Deploy customerportal-api
+      identifier: Deploy_customerportal_api
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: customerportal_api
+          serviceRef: CustomerPortal_customerportal_api
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
-          - stepGroup:
-              name: Java/Gradle Build
-              identifier: Java_Gradle_Build_Invocation
-              template:
-                templateRef: Java_Gradle_Build
-                versionLabel: v1
-                templateInputs:
-                  variables:
-                  - name: workingDir
-                    type: String
-                    value: .
-                  - name: gradleTasks
-                    type: String
-                    value: clean build
-                  - name: extraArgs
-                    type: String
-                    value: ''
-                  - name: javaHome
-                    type: String
-                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -52,41 +33,22 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: customerportal-api"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: customerportal-batch
-      identifier: customerportal_batch
+      name: Deploy customerportal-batch
+      identifier: Deploy_customerportal_batch
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: customerportal_batch
+          serviceRef: CustomerPortal_customerportal_batch
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
-          - stepGroup:
-              name: Java/Gradle Build
-              identifier: Java_Gradle_Build_Invocation
-              template:
-                templateRef: Java_Gradle_Build
-                versionLabel: v1
-                templateInputs:
-                  variables:
-                  - name: workingDir
-                    type: String
-                    value: .
-                  - name: gradleTasks
-                    type: String
-                    value: clean build
-                  - name: extraArgs
-                    type: String
-                    value: ''
-                  - name: javaHome
-                    type: String
-                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -97,41 +59,22 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: customerportal-batch"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: customerportal-web
-      identifier: customerportal_web
+      name: Deploy customerportal-web
+      identifier: Deploy_customerportal_web
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: customerportal_web
+          serviceRef: CustomerPortal_customerportal_web
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
-          - stepGroup:
-              name: Java/Gradle Build
-              identifier: Java_Gradle_Build_Invocation
-              template:
-                templateRef: Java_Gradle_Build
-                versionLabel: v1
-                templateInputs:
-                  variables:
-                  - name: workingDir
-                    type: String
-                    value: .
-                  - name: gradleTasks
-                    type: String
-                    value: clean build
-                  - name: extraArgs
-                    type: String
-                    value: ''
-                  - name: javaHome
-                    type: String
-                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -142,4 +85,4 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: customerportal-web"'
+                    script: 'echo TODO: implement deployment'

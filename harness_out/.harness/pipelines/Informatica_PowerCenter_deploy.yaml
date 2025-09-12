@@ -1,5 +1,5 @@
 pipeline:
-  name: Informatica PowerCenter - deploy
+  name: Informatica PowerCenter deploy
   identifier: Informatica_PowerCenter_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
@@ -8,17 +8,18 @@ pipeline:
     ci_name: Informatica PowerCenter
   stages:
   - stage:
-      name: 1930_DPS_Import_Objects
-      identifier: _1930_DPS_Import_Objects
+      name: Deploy 1930_DPS_Import_Objects
+      identifier: Deploy_1930_DPS_Import_Objects
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: _1930_DPS_Import_Objects
+          serviceRef: Informatica_PowerCenter_1930_DPS_Import_Objects
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
           - step:
@@ -31,19 +32,20 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Import_Objects"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: 1930_Informatica_PowerCenter_DeploymentGroup
-      identifier: _1930_Informatica_PowerCenter_DeploymentGroup
+      name: Deploy 1930_Informatica_PowerCenter_DeploymentGroup
+      identifier: Deploy_1930_Informatica_PowerCenter_DeploymentGroup
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: _1930_Informatica_PowerCenter_DeploymentGroup
+          serviceRef: Informatica_PowerCenter_1930_Informatica_PowerCenter_DeploymentGroup
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
           - step:
@@ -56,19 +58,20 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_Informatica_PowerCenter_DeploymentGroup"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: 1930_DPS_Folder_Migration
-      identifier: _1930_DPS_Folder_Migration
+      name: Deploy 1930_DPS_Folder_Migration
+      identifier: Deploy_1930_DPS_Folder_Migration
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: _1930_DPS_Folder_Migration
+          serviceRef: Informatica_PowerCenter_1930_DPS_Folder_Migration
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
           - step:
@@ -81,19 +84,20 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Folder_Migration"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: 1930_DPS_Deploy_Multiple_Deployment_Groups
-      identifier: _1930_DPS_Deploy_Multiple_Deployment_Groups
+      name: Deploy 1930_DPS_Deploy_Multiple_Deployment_Groups
+      identifier: Deploy_1930_DPS_Deploy_Multiple_Deployment_Groups
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: _1930_DPS_Deploy_Multiple_Deployment_Groups
+          serviceRef: Informatica_PowerCenter_1930_DPS_Deploy_Multiple_Deployment_Groups
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
           - step:
@@ -106,4 +110,4 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: 1930_DPS_Deploy_Multiple_Deployment_Groups"'
+                    script: 'echo TODO: implement deployment'

@@ -1,5 +1,5 @@
 pipeline:
-  name: Javahosting Nitro Application Test Deployments - deploy
+  name: Javahosting Nitro Application Test Deployments deploy
   identifier: Javahosting_Nitro_Application_Test_Deployments_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
@@ -12,39 +12,20 @@ pipeline:
     criticality: critical
   stages:
   - stage:
-      name: Javahosting_Nitro_Application_Test_Deployments_Properties
-      identifier: Javahosting_Nitro_Application_Test_Deployments_Properties
+      name: Deploy Javahosting_Nitro_Application_Test_Deployments_Properties
+      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_Properties
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Properties
+          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_Properties
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
-          - stepGroup:
-              name: Java/Gradle Build
-              identifier: Java_Gradle_Build_Invocation
-              template:
-                templateRef: Java_Gradle_Build
-                versionLabel: v1
-                templateInputs:
-                  variables:
-                  - name: workingDir
-                    type: String
-                    value: .
-                  - name: gradleTasks
-                    type: String
-                    value: clean build
-                  - name: extraArgs
-                    type: String
-                    value: ''
-                  - name: javaHome
-                    type: String
-                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -55,41 +36,22 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: Javahosting_Nitro_Application_Test_Deployments_Properties"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: Javahosting_Nitro_Application_Test_Deployments_WAR
-      identifier: Javahosting_Nitro_Application_Test_Deployments_WAR
+      name: Deploy Javahosting_Nitro_Application_Test_Deployments_WAR
+      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_WAR
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_WAR
+          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_WAR
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
-          - stepGroup:
-              name: Java/Gradle Build
-              identifier: Java_Gradle_Build_Invocation
-              template:
-                templateRef: Java_Gradle_Build
-                versionLabel: v1
-                templateInputs:
-                  variables:
-                  - name: workingDir
-                    type: String
-                    value: .
-                  - name: gradleTasks
-                    type: String
-                    value: clean build
-                  - name: extraArgs
-                    type: String
-                    value: ''
-                  - name: javaHome
-                    type: String
-                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -100,41 +62,22 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: Javahosting_Nitro_Application_Test_Deployments_WAR"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: Javahosting_Nitro_Application_Test_Deployments_Web_Content
-      identifier: Javahosting_Nitro_Application_Test_Deployments_Web_Content
+      name: Deploy Javahosting_Nitro_Application_Test_Deployments_Web_Content
+      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_Web_Content
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Web_Content
+          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_Web_Content
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
-          - stepGroup:
-              name: Java/Gradle Build
-              identifier: Java_Gradle_Build_Invocation
-              template:
-                templateRef: Java_Gradle_Build
-                versionLabel: v1
-                templateInputs:
-                  variables:
-                  - name: workingDir
-                    type: String
-                    value: .
-                  - name: gradleTasks
-                    type: String
-                    value: clean build
-                  - name: extraArgs
-                    type: String
-                    value: ''
-                  - name: javaHome
-                    type: String
-                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -145,41 +88,22 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: Javahosting_Nitro_Application_Test_Deployments_Web_Content"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: Javahosting_Nitro_Application_Test_Deployments_zero_downtime
-      identifier: Javahosting_Nitro_Application_Test_Deployments_zero_downtime
+      name: Deploy Javahosting_Nitro_Application_Test_Deployments_zero_downtime
+      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_zero_downtime
       type: Deployment
       spec:
-        deploymentType: Ssh
+        deploymentType: Custom
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_zero_downtime
+          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_zero_downtime
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
-          - stepGroup:
-              name: Java/Gradle Build
-              identifier: Java_Gradle_Build_Invocation
-              template:
-                templateRef: Java_Gradle_Build
-                versionLabel: v1
-                templateInputs:
-                  variables:
-                  - name: workingDir
-                    type: String
-                    value: .
-                  - name: gradleTasks
-                    type: String
-                    value: clean build
-                  - name: extraArgs
-                    type: String
-                    value: ''
-                  - name: javaHome
-                    type: String
-                    value: ''
           - step:
               name: Deploy
               identifier: Deploy
@@ -190,4 +114,4 @@ pipeline:
                 source:
                   type: Inline
                   spec:
-                    script: 'echo "TODO: implement deployment for component: Javahosting_Nitro_Application_Test_Deployments_zero_downtime"'
+                    script: 'echo TODO: implement deployment'

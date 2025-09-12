@@ -1,0 +1,12 @@
+service:
+  name: dataloader-service
+  identifier: DataIngestor_dataloader_service
+  tags:
+    language: python
+    python: venv
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: my_org
+  projectIdentifier: my_project

@@ -1,0 +1,2123 @@
+{
+  "metadata": {
+    "export_date": "2025-08-22T12:59:10.049073",
+    "tool_version": "1.0",
+    "total_applications": 5
+  },
+  "applications": [
+    {
+      "application": {
+        "id": "1687c3e4-7854-8a50-3c9b-e239140a97a8",
+        "securityResourceId": "1687c3e4-762d-4301-442d-d7fd54bdf598",
+        "name": "Informatica PowerCenter",
+        "created": 1548272682885,
+        "enforceCompleteSnapshots": false,
+        "active": true,
+        "tags": [
+          {
+            "id": "191f8232-0da5-e643-b301-be86d60e2fe8",
+            "name": "bsa:Customer Solutions",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263dbf-7199-e145-c1d2-64d91f317499",
+            "name": "org:Strategy Data and Innovation",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263df0-c35c-4a5b-d39b-5bb3f19d2f6f",
+            "name": "ci_name:Informatica PowerCenter",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263c58-a89e-21ed-2151-4159b6258634",
+            "name": "bsa:Data Analytics and Customer",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "1921c2fc-b1ab-5317-43ec-4171c5c2625a",
+            "name": "bsa:Enterprise Data Office",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "182b6910-c397-0cd6-f965-06a5bf6cacad",
+            "name": "appId:1930",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263d8a-1d65-5ec2-d9a6-1739b52b917a",
+            "name": "criticality:critical",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "191f8232-1765-2f36-6be6-1a3e22bb70cc",
+            "name": "org:Technology Enterprise Solutions",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263c1a-6c0f-81a0-9cf0-034eb05a6e0c",
+            "name": "regulated:true",
+            "color": "#0047BB",
+            "objectType": "Application"
+          }
+        ],
+        "deleted": false,
+        "templateVersion": -1,
+        "templateId": "14170e39-60d7-48a3-bd82-216e556085f6",
+        "onlyChangedVersions": true,
+        "useWizard": false,
+        "user": "andrem6"
+      },
+      "components": [
+        {
+          "id": "1687c337-90ee-d269-adce-dfb6f86bff9b",
+          "securityResourceId": "1687c337-8f67-683e-a1d0-3f3dd1902de7",
+          "name": "1930_DPS_Deploy_Multiple_Deployment_Groups",
+          "created": 1548271974670,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "165f8848-bea9-feec-830a-484e1fdb2a9b",
+              "name": "Informatica_Multiple_Deployment_Group",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "165f8848-bea9-feec-830a-484e1fdb2a9b",
+              "name": "Informatica_Multiple_Deployment_Group",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1687c338-235d-5e24-fc6f-d2a599839cd9",
+          "securityResourceId": "1687c338-21e6-16d5-966d-7d989de706f8",
+          "name": "1930_DPS_Folder_Migration",
+          "created": 1548271977013,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "162d9119-ea19-2574-3269-382648fc3e35",
+              "name": "Informatica_Folder_Migration",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "162d9119-ea19-2574-3269-382648fc3e35",
+              "name": "Informatica_Folder_Migration",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "6cf37f93-d42b-47be-8ced-42553b2c885e",
+          "securityResourceId": "ce04d1c0-c034-4952-bcc9-498f072f9075",
+          "name": "1930_DPS_Import_Objects",
+          "created": 1481831045938,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "6fe465c9-9f7b-4955-aaa7-a268ce00e66e",
+              "name": "Informatica_Import_Objects",
+              "color": "#17AF4B",
+              "description": "Import Objects into Informatica",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "6fe465c9-9f7b-4955-aaa7-a268ce00e66e",
+              "name": "Informatica_Import_Objects",
+              "color": "#17AF4B",
+              "description": "Import Objects into Informatica",
+              "objectType": "Component"
+            }
+          ],
+          "user": "salvs34 (sarnoj1)"
+        },
+        {
+          "id": "1687c338-b808-ee69-320c-9d2004560edf",
+          "securityResourceId": "1687c338-b660-00f5-e7cf-d3475f85329e",
+          "name": "1930_Informatica_PowerCenter_DeploymentGroup",
+          "created": 1548271979392,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "162d911a-c65a-2f09-cb52-1867579d7754",
+              "name": "Informatica_Deployment_Group",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "162d911a-c65a-2f09-cb52-1867579d7754",
+              "name": "Informatica_Deployment_Group",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        }
+      ],
+      "pipelines": [
+        {
+          "id": "00589844-133c-412d-abe8-fd17647d3092",
+          "name": "deploy",
+          "description": "",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 8,
+          "version": 8,
+          "commit": 18705,
+          "path": "applicationTemplates/14170e39-60d7-48a3-bd82-216e556085f6/processes/00589844-133c-412d-abe8-fd17647d3092",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "14170e39-60d7-48a3-bd82-216e556085f6",
+            "securityResourceId": "e7ddabf1-7c7b-44f5-9547-1a32f0e1bbba",
+            "name": "Informatica",
+            "description": "",
+            "created": 1481295746932,
+            "versionCount": 32,
+            "version": 32,
+            "path": "applicationTemplates/14170e39-60d7-48a3-bd82-216e556085f6",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [
+              {
+                "tag": {
+                  "id": "d905338f-1279-4d57-bb2e-0f7a204380c0",
+                  "name": "Apigee_Proxy",
+                  "color": "#DD731C",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "165f8848-bea9-feec-830a-484e1fdb2a9b",
+                  "name": "Informatica_Multiple_Deployment_Group",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "6fe465c9-9f7b-4955-aaa7-a268ce00e66e",
+                  "name": "Informatica_Import_Objects",
+                  "color": "#17AF4B",
+                  "description": "Import Objects into Informatica",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "162d911a-c65a-2f09-cb52-1867579d7754",
+                  "name": "Informatica_Deployment_Group",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "0b6d7911-4330-42d0-82d0-06c01098d44c",
+                  "name": "Informatica_Batch",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "162d9119-ea19-2574-3269-382648fc3e35",
+                  "name": "Informatica_Folder_Migration",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              }
+            ],
+            "user": "salvs34 (sarnoj1)",
+            "security": {
+              "read": true,
+              "Create Application Templates": true,
+              "Delete": true,
+              "Edit Basic Settings": true,
+              "Manage Blueprints": true,
+              "Manage Component Tags": true,
+              "Manage Environment Templates": true,
+              "Manage Processes": true,
+              "Manage Properties": true,
+              "Manage Teams": true,
+              "View Application Templates": true
+            }
+          }
+        },
+        {
+          "id": "3cc6ee9f-88e7-47a0-a94e-e620eeb31a86",
+          "name": "deploy deployment group",
+          "description": "",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 4,
+          "version": 4,
+          "commit": 13698,
+          "path": "applicationTemplates/14170e39-60d7-48a3-bd82-216e556085f6/processes/3cc6ee9f-88e7-47a0-a94e-e620eeb31a86",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "14170e39-60d7-48a3-bd82-216e556085f6",
+            "securityResourceId": "e7ddabf1-7c7b-44f5-9547-1a32f0e1bbba",
+            "name": "Informatica",
+            "description": "",
+            "created": 1481295746932,
+            "versionCount": 32,
+            "version": 32,
+            "path": "applicationTemplates/14170e39-60d7-48a3-bd82-216e556085f6",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [
+              {
+                "tag": {
+                  "id": "d905338f-1279-4d57-bb2e-0f7a204380c0",
+                  "name": "Apigee_Proxy",
+                  "color": "#DD731C",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "165f8848-bea9-feec-830a-484e1fdb2a9b",
+                  "name": "Informatica_Multiple_Deployment_Group",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "6fe465c9-9f7b-4955-aaa7-a268ce00e66e",
+                  "name": "Informatica_Import_Objects",
+                  "color": "#17AF4B",
+                  "description": "Import Objects into Informatica",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "162d911a-c65a-2f09-cb52-1867579d7754",
+                  "name": "Informatica_Deployment_Group",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "0b6d7911-4330-42d0-82d0-06c01098d44c",
+                  "name": "Informatica_Batch",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "162d9119-ea19-2574-3269-382648fc3e35",
+                  "name": "Informatica_Folder_Migration",
+                  "color": "#17AF4B",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              }
+            ],
+            "user": "salvs34 (sarnoj1)",
+            "security": {
+              "read": true,
+              "Create Application Templates": true,
+              "Delete": true,
+              "Edit Basic Settings": true,
+              "Manage Blueprints": true,
+              "Manage Component Tags": true,
+              "Manage Environment Templates": true,
+              "Manage Processes": true,
+              "Manage Properties": true,
+              "Manage Teams": true,
+              "View Application Templates": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "application": {
+        "id": "1621a5b2-c49b-dabd-eb67-1a2e8e6613ac",
+        "securityResourceId": "1621a5b2-c45a-ddce-1422-1cfc21232bd1",
+        "name": "Javahosting Nitro Application Test Deployments",
+        "description": "Javahosting Nitro Test application that can be used to perform Javahosting Nitro deployment to test template and process updates to the Javahosting Nitro template",
+        "created": 1520860605096,
+        "enforceCompleteSnapshots": false,
+        "active": true,
+        "tags": [
+          {
+            "id": "18263c57-3fc7-b3d9-848e-0f9b364da098",
+            "name": "bsa:Cloud Operations",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "190feeed-f417-476d-27a4-cd5c6eabb243",
+            "name": "org:Security and Infrastructure",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "190feeed-e44e-dd8a-3b15-1b742afb78ab",
+            "name": "bsa:Developer Experience and Platform",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "182b691a-9ffa-eb98-d9ec-47a6f81e5534",
+            "name": "appId:8006",
+            "color": "#00B2EF",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263c1a-2d4b-e436-b012-90ae78f671ff",
+            "name": "regulated:false",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263f6f-bfea-d788-c0e6-4e08301a8f7f",
+            "name": "org:Infrastructure and Operations",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "182b6958-8273-922f-de37-1966b3936bd3",
+            "name": "ci_name:Concourse CI",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263d8a-1d65-5ec2-d9a6-1739b52b917a",
+            "name": "criticality:critical",
+            "color": "#0047BB",
+            "objectType": "Application"
+          }
+        ],
+        "deleted": false,
+        "templateVersion": -1,
+        "templateId": "cae4414f-e5b3-44cd-a3e5-2e8ad0339cc2",
+        "onlyChangedVersions": true,
+        "useWizard": false,
+        "user": "summerd2 (SUMMERD2)"
+      },
+      "components": [
+        {
+          "id": "16286d8b-ae5d-19e7-4823-11c85282cfdb",
+          "securityResourceId": "16286d8b-ac5c-48b6-eaae-1cb5e2daad9d",
+          "name": "Javahosting_Nitro_Application_Test_Deployments_Properties",
+          "description": "Can be used to test updates to the Javahosting Nitro template or deployment process in the Javahosting Nitro - Property Files",
+          "created": 1522680773349,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "46d1b129-1306-407c-8cae-a44a4569c363",
+              "name": "Nitro_Property",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "46d1b129-1306-407c-8cae-a44a4569c363",
+              "name": "Nitro_Property",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "161fb794-8f22-c0c2-28f9-527f7b5e9b4b",
+          "securityResourceId": "161fb794-8da8-092e-2388-114ed2eccef1",
+          "name": "Javahosting_Nitro_Application_Test_Deployments_WAR",
+          "description": "Can be used to deploy an EAR file to test template and deployment process updates to the Javahosting Nitro - EAR or WAR file component template",
+          "created": 1520342485234,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "b06ea0f1-a8f2-4f7e-8109-6a4b572b8ed8",
+              "name": "Nitro_App",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "b06ea0f1-a8f2-4f7e-8109-6a4b572b8ed8",
+              "name": "Nitro_App",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "user": "summerd2 (SUMMERD2)"
+        },
+        {
+          "id": "16286de0-f6ad-5e13-f053-b1d8d542e3d5",
+          "securityResourceId": "16286de0-f625-7845-57b7-7536632d58f4",
+          "name": "Javahosting_Nitro_Application_Test_Deployments_Web_Content",
+          "description": "Can be used to test changes to the Javahosting Nitro web content component template. Contains dummy files that can be safely deployed for testing",
+          "created": 1522681122578,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "cc72f08a-fb9f-4fca-a517-e86e5145bc79",
+              "name": "Nitro_Web",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "cc72f08a-fb9f-4fca-a517-e86e5145bc79",
+              "name": "Nitro_Web",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "163df433-a600-0a94-81fb-b2cf6f9f018c",
+          "securityResourceId": "163df433-a585-37ed-e8b7-7da9c15ed495",
+          "name": "Javahosting_Nitro_Application_Test_Deployments_zero_downtime",
+          "description": "Used to set zero downtime and/or auto deploy to DR capabilities",
+          "created": 1528459115022,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "163ff8cb-1fb4-b03e-122c-96a4e7c3f2cb",
+              "name": "Nitro_Zero_Downtime",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "163ff8cb-1fb4-b03e-122c-96a4e7c3f2cb",
+              "name": "Nitro_Zero_Downtime",
+              "color": "#A91024",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        }
+      ],
+      "pipelines": [
+        {
+          "id": "16248b44-6808-2c26-104d-00ff77489062",
+          "name": "Make Active",
+          "description": "Turns an inactive instance into an Active instance",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 49,
+          "version": 49,
+          "commit": 17418,
+          "path": "applicationTemplates/cae4414f-e5b3-44cd-a3e5-2e8ad0339cc2/processes/16248b44-6808-2c26-104d-00ff77489062",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "cae4414f-e5b3-44cd-a3e5-2e8ad0339cc2",
+            "securityResourceId": "e65d3f89-7c8c-4900-bd2d-c58cd1af4229",
+            "name": "ucdPROD - Javahosting Nitro",
+            "description": "",
+            "created": 1497335914543,
+            "versionCount": 125,
+            "version": 125,
+            "path": "applicationTemplates/cae4414f-e5b3-44cd-a3e5-2e8ad0339cc2",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [
+              {
+                "tag": {
+                  "id": "165e8e18-d93c-3284-b57b-31d7e483e087",
+                  "name": "Nitro_Web_Property",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "cc72f08a-fb9f-4fca-a517-e86e5145bc79",
+                  "name": "Nitro_Web",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "163ff8cb-1fb4-b03e-122c-96a4e7c3f2cb",
+                  "name": "Nitro_Zero_Downtime",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "b06ea0f1-a8f2-4f7e-8109-6a4b572b8ed8",
+                  "name": "Nitro_App",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "46d1b129-1306-407c-8cae-a44a4569c363",
+                  "name": "Nitro_Property",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              }
+            ],
+            "user": "suranc1",
+            "security": {
+              "read": true,
+              "Create Application Templates": true,
+              "Delete": true,
+              "Edit Basic Settings": true,
+              "Manage Blueprints": true,
+              "Manage Component Tags": true,
+              "Manage Environment Templates": true,
+              "Manage Processes": true,
+              "Manage Properties": true,
+              "Manage Teams": true,
+              "View Application Templates": true
+            }
+          }
+        },
+        {
+          "id": "618bc8bc-0bad-4eea-8bc9-b34fd40fa400",
+          "name": "deploy",
+          "description": "",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 12,
+          "version": 12,
+          "commit": 17875,
+          "path": "applicationTemplates/cae4414f-e5b3-44cd-a3e5-2e8ad0339cc2/processes/618bc8bc-0bad-4eea-8bc9-b34fd40fa400",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "cae4414f-e5b3-44cd-a3e5-2e8ad0339cc2",
+            "securityResourceId": "e65d3f89-7c8c-4900-bd2d-c58cd1af4229",
+            "name": "ucdPROD - Javahosting Nitro",
+            "description": "",
+            "created": 1497335914543,
+            "versionCount": 125,
+            "version": 125,
+            "path": "applicationTemplates/cae4414f-e5b3-44cd-a3e5-2e8ad0339cc2",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [
+              {
+                "tag": {
+                  "id": "165e8e18-d93c-3284-b57b-31d7e483e087",
+                  "name": "Nitro_Web_Property",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "cc72f08a-fb9f-4fca-a517-e86e5145bc79",
+                  "name": "Nitro_Web",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "163ff8cb-1fb4-b03e-122c-96a4e7c3f2cb",
+                  "name": "Nitro_Zero_Downtime",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "b06ea0f1-a8f2-4f7e-8109-6a4b572b8ed8",
+                  "name": "Nitro_App",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "46d1b129-1306-407c-8cae-a44a4569c363",
+                  "name": "Nitro_Property",
+                  "color": "#A91024",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              }
+            ],
+            "user": "suranc1",
+            "security": {
+              "read": true,
+              "Create Application Templates": true,
+              "Delete": true,
+              "Edit Basic Settings": true,
+              "Manage Blueprints": true,
+              "Manage Component Tags": true,
+              "Manage Environment Templates": true,
+              "Manage Processes": true,
+              "Manage Properties": true,
+              "Manage Teams": true,
+              "View Application Templates": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "application": {
+        "id": "16838c3d-947b-451a-e32a-3be18fa08f11",
+        "securityResourceId": "16838c3d-92c1-5182-9dcd-fb1c8ed9b940",
+        "name": "Windows Application (Standard) Test Deployments",
+        "created": 1547140585799,
+        "enforceCompleteSnapshots": false,
+        "active": true,
+        "tags": [
+          {
+            "id": "18263c57-3fc7-b3d9-848e-0f9b364da098",
+            "name": "bsa:Cloud Operations",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "190feeed-f417-476d-27a4-cd5c6eabb243",
+            "name": "org:Security and Infrastructure",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "190feeed-e44e-dd8a-3b15-1b742afb78ab",
+            "name": "bsa:Developer Experience and Platform",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "182b690f-753c-e233-3034-d59e24529552",
+            "name": "appId:8878",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263d89-ccba-7ff0-872a-5bf2480309fd",
+            "name": "criticality:not_critical",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263c1a-2d4b-e436-b012-90ae78f671ff",
+            "name": "regulated:false",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263f6f-bfea-d788-c0e6-4e08301a8f7f",
+            "name": "org:Infrastructure and Operations",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "id": "18263f6f-c90f-7ff6-87fe-a91443503119",
+            "name": "ci_name:GitHub Organization Probots",
+            "color": "#0047BB",
+            "objectType": "Application"
+          }
+        ],
+        "deleted": false,
+        "templateVersion": -1,
+        "templateId": "0b277091-2141-4a6c-af27-1601fcfdb861",
+        "onlyChangedVersions": true,
+        "useWizard": false,
+        "user": "andrem6"
+      },
+      "components": [
+        {
+          "id": "1682e5d3-f448-c0bc-6197-b399cf1f11d1",
+          "securityResourceId": "1682e5d3-f0f6-a90b-21ae-baf93273104a",
+          "name": "Windows_Web_Application_Test_Deployments_COM",
+          "description": "This wiill test the Windows COM component template which will stop and start a dummy COM object on our test server",
+          "created": 1546966089540,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+              "name": "Windows_COM",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+              "name": "Windows_COM",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e2ff-8983-d2fe-fbf5-5867482731ba",
+          "securityResourceId": "1682e2ff-8782-8832-9ade-7e53e3f8873c",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_App",
+          "description": "This will be used to test Windows COM App deployments under the \"Windows Web Application\" Application template",
+          "created": 1546963122328,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "f31ce624-0ce0-4426-8cdc-c8ab30b9bfd8",
+              "name": "COM_App_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This contains the client side application for a COM+ object that communicates with a proxy using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "f31ce624-0ce0-4426-8cdc-c8ab30b9bfd8",
+              "name": "COM_App_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This contains the client side application for a COM+ object that communicates with a proxy using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e300-403c-f26e-6153-94ad98b7b9b7",
+          "securityResourceId": "1682e300-3e92-b9d3-2a39-b865574cbdc1",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_Proxy",
+          "description": "This will be used to test Windows COM Proxy deployments under the \"Windows Web Application\" Application template",
+          "created": 1546963125251,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "ecdde3a3-3755-4cd5-aa1c-1e3c138727bb",
+              "name": "COM_Proxy_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This is used to tag a deployment to deploy a server side application that communicates with an application on a client side server using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "ecdde3a3-3755-4cd5-aa1c-1e3c138727bb",
+              "name": "COM_Proxy_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This is used to tag a deployment to deploy a server side application that communicates with an application on a client side server using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e4d0-d59d-1b60-8d9c-ab5063e0664f",
+          "securityResourceId": "1682e4d0-d3e2-4a3b-bcf5-6f9288959211",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test",
+          "description": "Deploys an executable to a server to test updating a config file",
+          "created": 1546965028185,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "162d9120-82de-f24b-9af6-275039c45231",
+              "name": "Ext_Script",
+              "color": "#008A52",
+              "description": "Tag for External Script Deployment",
+              "objectType": "Component"
+            },
+            {
+              "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+              "name": "Windows-BATCH",
+              "color": "#EE3D96",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+              "name": "Windows-BATCH",
+              "color": "#EE3D96",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e524-074e-f9e6-97cb-f13d4426e3b8",
+          "securityResourceId": "1682e524-043e-64fb-927e-1415c8cd7fc1",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test",
+          "description": "Test Windows config component template deployment",
+          "created": 1546965368948,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e61c-606f-2d5b-dec0-c84dcfdcc021",
+          "securityResourceId": "1682e61c-5fd2-46d7-898b-789954744d17",
+          "name": "Windows_Web_Application_Test_Deployments_Windows_Service",
+          "description": "This wiill test the Windows Service component template which will stop and start a dummy service eon our test server",
+          "created": 1546966386148,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+              "name": "Windows_Service",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+              "name": "Windows_Service",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        }
+      ],
+      "pipelines": [
+        {
+          "id": "5378b602-43dd-4ea5-bb26-4e36b1b9c62b",
+          "name": "deploy",
+          "description": "Runs several Windows Deployment processes",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 6,
+          "version": 6,
+          "commit": 18507,
+          "path": "applicationTemplates/0b277091-2141-4a6c-af27-1601fcfdb861/processes/5378b602-43dd-4ea5-bb26-4e36b1b9c62b",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "0b277091-2141-4a6c-af27-1601fcfdb861",
+            "securityResourceId": "d734009a-734d-4ea8-ad34-a9192d60f08a",
+            "name": "Windows Application (Standard)",
+            "description": "Currently, only MSI",
+            "created": 1491316165399,
+            "versionCount": 12,
+            "version": 12,
+            "path": "applicationTemplates/0b277091-2141-4a6c-af27-1601fcfdb861",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [
+              {
+                "tag": {
+                  "id": "d905338f-1279-4d57-bb2e-0f7a204380c0",
+                  "name": "Apigee_Proxy",
+                  "color": "#DD731C",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "f31ce624-0ce0-4426-8cdc-c8ab30b9bfd8",
+                  "name": "COM_App_MSI_Deploy",
+                  "color": "#D9182D",
+                  "description": "This contains the client side application for a COM+ object that communicates with a proxy using DCOM",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+                  "name": "Windows-BATCH",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+                  "name": "Windows_Config_Deploy",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "addac40f-8f51-4895-bf42-44719ea5ffe1",
+                  "name": "MSI_Deploy",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+                  "name": "Windows_Service",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+                  "name": "Windows_COM",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "ecdde3a3-3755-4cd5-aa1c-1e3c138727bb",
+                  "name": "COM_Proxy_MSI_Deploy",
+                  "color": "#D9182D",
+                  "description": "This is used to tag a deployment to deploy a server side application that communicates with an application on a client side server using DCOM",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "3d48f2ba-af4c-4825-af48-250d98b4df73",
+                  "name": "Windows Web-Content",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              }
+            ],
+            "user": "andrem6",
+            "security": {
+              "read": true,
+              "Create Application Templates": true,
+              "Delete": true,
+              "Edit Basic Settings": true,
+              "Manage Blueprints": true,
+              "Manage Component Tags": true,
+              "Manage Environment Templates": true,
+              "Manage Processes": true,
+              "Manage Properties": true,
+              "Manage Teams": true,
+              "View Application Templates": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "application": {
+        "id": "16833aeb-2490-0654-fb5b-05f565996e05",
+        "securityResourceId": "16833aeb-244a-3ae3-bbce-89763ae2e4ce",
+        "name": "Windows Web Application Test Deployments",
+        "description": "This will be used to test all Windows deployments under the \"Windows Web Application\" Application template",
+        "created": 1547055313472,
+        "enforceCompleteSnapshots": false,
+        "active": true,
+        "tags": [],
+        "deleted": false,
+        "templateVersion": -1,
+        "templateId": "61a4ecee-500c-481d-a9ea-ecf1541ba4e8",
+        "onlyChangedVersions": true,
+        "useWizard": false,
+        "user": "andrem6"
+      },
+      "components": [
+        {
+          "id": "17a63496-f048-012d-405e-61f636770b5c",
+          "securityResourceId": "17a63496-efe4-863f-5813-3bab41974e25",
+          "name": "PH37507_test",
+          "created": 1625163394207,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e5d3-f448-c0bc-6197-b399cf1f11d1",
+          "securityResourceId": "1682e5d3-f0f6-a90b-21ae-baf93273104a",
+          "name": "Windows_Web_Application_Test_Deployments_COM",
+          "description": "This wiill test the Windows COM component template which will stop and start a dummy COM object on our test server",
+          "created": 1546966089540,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+              "name": "Windows_COM",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+              "name": "Windows_COM",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e2ff-8983-d2fe-fbf5-5867482731ba",
+          "securityResourceId": "1682e2ff-8782-8832-9ade-7e53e3f8873c",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_App",
+          "description": "This will be used to test Windows COM App deployments under the \"Windows Web Application\" Application template",
+          "created": 1546963122328,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "f31ce624-0ce0-4426-8cdc-c8ab30b9bfd8",
+              "name": "COM_App_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This contains the client side application for a COM+ object that communicates with a proxy using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "f31ce624-0ce0-4426-8cdc-c8ab30b9bfd8",
+              "name": "COM_App_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This contains the client side application for a COM+ object that communicates with a proxy using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e300-403c-f26e-6153-94ad98b7b9b7",
+          "securityResourceId": "1682e300-3e92-b9d3-2a39-b865574cbdc1",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_COM_MSI_Test_Proxy",
+          "description": "This will be used to test Windows COM Proxy deployments under the \"Windows Web Application\" Application template",
+          "created": 1546963125251,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "ecdde3a3-3755-4cd5-aa1c-1e3c138727bb",
+              "name": "COM_Proxy_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This is used to tag a deployment to deploy a server side application that communicates with an application on a client side server using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "ecdde3a3-3755-4cd5-aa1c-1e3c138727bb",
+              "name": "COM_Proxy_MSI_Deploy",
+              "color": "#D9182D",
+              "description": "This is used to tag a deployment to deploy a server side application that communicates with an application on a client side server using DCOM",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e300-e4c8-d116-9b23-196d4674ff92",
+          "securityResourceId": "1682e300-e26b-9f30-5ea9-d100aeb8f1cf",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_IIS_App_Restart_Test",
+          "description": "This will be used to test IIS App Pool Restart deployments under the \"Windows Web Application\" Application template",
+          "created": 1546963127884,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "2c8e4514-b87f-4eac-aa58-56ece2ed8d55",
+              "name": "IISAppPool",
+              "color": "#FFCF01",
+              "description": "IIS Application Pool",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "2c8e4514-b87f-4eac-aa58-56ece2ed8d55",
+              "name": "IISAppPool",
+              "color": "#FFCF01",
+              "description": "IIS Application Pool",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e301-886c-712a-b4da-6e0ba78ac098",
+          "securityResourceId": "1682e301-8684-2d25-575c-140ba09b8195",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_IIS_Site_Restart_Test",
+          "description": "This will be used to test IIS Site Restart deployments under the \"Windows Web Application\" Application template",
+          "created": 1546963130502,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "40f50c15-1168-43c3-b2c8-4eacce76a566",
+              "name": "IIS",
+              "color": "#D9182D",
+              "description": "IIS Component template",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "40f50c15-1168-43c3-b2c8-4eacce76a566",
+              "name": "IIS",
+              "color": "#D9182D",
+              "description": "IIS Component template",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e4d0-d59d-1b60-8d9c-ab5063e0664f",
+          "securityResourceId": "1682e4d0-d3e2-4a3b-bcf5-6f9288959211",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test",
+          "description": "Deploys an executable to a server to test updating a config file",
+          "created": 1546965028185,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "162d9120-82de-f24b-9af6-275039c45231",
+              "name": "Ext_Script",
+              "color": "#008A52",
+              "description": "Tag for External Script Deployment",
+              "objectType": "Component"
+            },
+            {
+              "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+              "name": "Windows-BATCH",
+              "color": "#EE3D96",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+              "name": "Windows-BATCH",
+              "color": "#EE3D96",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e524-074e-f9e6-97cb-f13d4426e3b8",
+          "securityResourceId": "1682e524-043e-64fb-927e-1415c8cd7fc1",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test",
+          "description": "Test Windows config component template deployment",
+          "created": 1546965368948,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e302-2bf9-0c82-682d-445a7553bd64",
+          "securityResourceId": "1682e302-29f5-1506-d57d-d98f25d7ac3d",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_Windows_Web_App_Test",
+          "description": "This will be used to test MS Web Deploy deployments under the \"Windows Web Application\" Application template",
+          "created": 1546963133119,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "6884a1b7-8822-4e0b-bd15-100ec04af30a",
+              "name": "IIS_MS_Web_Deploy",
+              "color": "#D9182D",
+              "description": "Used to deploy MS Web Deploy packages",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "6884a1b7-8822-4e0b-bd15-100ec04af30a",
+              "name": "IIS_MS_Web_Deploy",
+              "color": "#D9182D",
+              "description": "Used to deploy MS Web Deploy packages",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e61c-606f-2d5b-dec0-c84dcfdcc021",
+          "securityResourceId": "1682e61c-5fd2-46d7-898b-789954744d17",
+          "name": "Windows_Web_Application_Test_Deployments_Windows_Service",
+          "description": "This wiill test the Windows Service component template which will stop and start a dummy service eon our test server",
+          "created": 1546966386148,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+              "name": "Windows_Service",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+              "name": "Windows_Service",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        }
+      ],
+      "pipelines": [
+        {
+          "id": "325f1f28-71af-4916-a60e-ffa1964e8f56",
+          "name": "deploy",
+          "description": "Sets up the stage to install Web Applications",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 18,
+          "version": 18,
+          "commit": 22409,
+          "path": "applicationTemplates/61a4ecee-500c-481d-a9ea-ecf1541ba4e8/processes/325f1f28-71af-4916-a60e-ffa1964e8f56",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "61a4ecee-500c-481d-a9ea-ecf1541ba4e8",
+            "securityResourceId": "84e82e45-4662-45e1-b65c-2afc313bb276",
+            "name": "Windows Web Application",
+            "description": "This is used to deploy legacy Windows web applications and .NET Windows web applications",
+            "created": 1491316923438,
+            "versionCount": 37,
+            "version": 37,
+            "path": "applicationTemplates/61a4ecee-500c-481d-a9ea-ecf1541ba4e8",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [
+              {
+                "tag": {
+                  "id": "d905338f-1279-4d57-bb2e-0f7a204380c0",
+                  "name": "Apigee_Proxy",
+                  "color": "#DD731C",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+                  "name": "Windows_Config_Deploy",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "addac40f-8f51-4895-bf42-44719ea5ffe1",
+                  "name": "MSI_Deploy",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "3d48f2ba-af4c-4825-af48-250d98b4df73",
+                  "name": "Windows Web-Content",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "f31ce624-0ce0-4426-8cdc-c8ab30b9bfd8",
+                  "name": "COM_App_MSI_Deploy",
+                  "color": "#D9182D",
+                  "description": "This contains the client side application for a COM+ object that communicates with a proxy using DCOM",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "2c8e4514-b87f-4eac-aa58-56ece2ed8d55",
+                  "name": "IISAppPool",
+                  "color": "#FFCF01",
+                  "description": "IIS Application Pool",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+                  "name": "Windows-BATCH",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "1742a6a3-714d-5d65-968b-0d28385e404f",
+                  "name": "New_Relic_APM_dotNET",
+                  "color": "#DD731C",
+                  "description": "New Relic APM .NET Agent update",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+                  "name": "Windows_Service",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "40f50c15-1168-43c3-b2c8-4eacce76a566",
+                  "name": "IIS",
+                  "color": "#D9182D",
+                  "description": "IIS Component template",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "6884a1b7-8822-4e0b-bd15-100ec04af30a",
+                  "name": "IIS_MS_Web_Deploy",
+                  "color": "#D9182D",
+                  "description": "Used to deploy MS Web Deploy packages",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+                  "name": "Windows_COM",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "ecdde3a3-3755-4cd5-aa1c-1e3c138727bb",
+                  "name": "COM_Proxy_MSI_Deploy",
+                  "color": "#D9182D",
+                  "description": "This is used to tag a deployment to deploy a server side application that communicates with an application on a client side server using DCOM",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              }
+            ],
+            "user": "andrem6",
+            "security": {
+              "read": true,
+              "Create Application Templates": true,
+              "Delete": true,
+              "Edit Basic Settings": true,
+              "Manage Blueprints": true,
+              "Manage Component Tags": true,
+              "Manage Environment Templates": true,
+              "Manage Processes": true,
+              "Manage Properties": true,
+              "Manage Teams": true,
+              "View Application Templates": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "application": {
+        "id": "16838acc-557b-79cc-06f8-766f0a1a0ec8",
+        "securityResourceId": "16838acc-5259-dbee-a4b0-27d8a79f4cd7",
+        "name": "Windows-Batch Test Deployments",
+        "created": 1547139073367,
+        "enforceCompleteSnapshots": false,
+        "active": true,
+        "tags": [],
+        "deleted": false,
+        "templateVersion": -1,
+        "templateId": "daa8327d-4887-4edb-ab2e-93049ac1feb1",
+        "onlyChangedVersions": true,
+        "useWizard": false,
+        "user": "andrem6"
+      },
+      "components": [
+        {
+          "id": "1682e5d3-f448-c0bc-6197-b399cf1f11d1",
+          "securityResourceId": "1682e5d3-f0f6-a90b-21ae-baf93273104a",
+          "name": "Windows_Web_Application_Test_Deployments_COM",
+          "description": "This wiill test the Windows COM component template which will stop and start a dummy COM object on our test server",
+          "created": 1546966089540,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+              "name": "Windows_COM",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+              "name": "Windows_COM",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e4d0-d59d-1b60-8d9c-ab5063e0664f",
+          "securityResourceId": "1682e4d0-d3e2-4a3b-bcf5-6f9288959211",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test",
+          "description": "Deploys an executable to a server to test updating a config file",
+          "created": 1546965028185,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "162d9120-82de-f24b-9af6-275039c45231",
+              "name": "Ext_Script",
+              "color": "#008A52",
+              "description": "Tag for External Script Deployment",
+              "objectType": "Component"
+            },
+            {
+              "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+              "name": "Windows-BATCH",
+              "color": "#EE3D96",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+              "name": "Windows-BATCH",
+              "color": "#EE3D96",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e524-074e-f9e6-97cb-f13d4426e3b8",
+          "securityResourceId": "1682e524-043e-64fb-927e-1415c8cd7fc1",
+          "name": "Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test",
+          "description": "Test Windows config component template deployment",
+          "created": 1546965368948,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+              "name": "Windows_Config_Deploy",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        },
+        {
+          "id": "1682e61c-606f-2d5b-dec0-c84dcfdcc021",
+          "securityResourceId": "1682e61c-5fd2-46d7-898b-789954744d17",
+          "name": "Windows_Web_Application_Test_Deployments_Windows_Service",
+          "description": "This wiill test the Windows Service component template which will stop and start a dummy service eon our test server",
+          "created": 1546966386148,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+              "name": "Windows_Service",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+              "name": "Windows_Service",
+              "color": "#D9182D",
+              "objectType": "Component"
+            }
+          ],
+          "user": "andrem6"
+        }
+      ],
+      "pipelines": [
+        {
+          "id": "bc82eb06-c59f-431d-992d-fcc52362892a",
+          "name": "deploy",
+          "description": "",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 4,
+          "version": 4,
+          "commit": 18483,
+          "path": "applicationTemplates/daa8327d-4887-4edb-ab2e-93049ac1feb1/processes/bc82eb06-c59f-431d-992d-fcc52362892a",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "daa8327d-4887-4edb-ab2e-93049ac1feb1",
+            "securityResourceId": "d255373f-ec93-4063-82b1-45edc41fa3a9",
+            "name": "Windows-BATCH",
+            "description": "Batch/App Content",
+            "created": 1491316742251,
+            "versionCount": 10,
+            "version": 10,
+            "path": "applicationTemplates/daa8327d-4887-4edb-ab2e-93049ac1feb1",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [
+              {
+                "tag": {
+                  "id": "17c146b9-e7cf-46dc-9dbc-1b8ba819b5dc",
+                  "name": "Windows App Content",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "d905338f-1279-4d57-bb2e-0f7a204380c0",
+                  "name": "Apigee_Proxy",
+                  "color": "#DD731C",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "e6f11e13-af64-4ada-b755-cebbfc6128f0",
+                  "name": "Windows-BATCH",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "164a85ce-cbd9-163c-c22b-3f5189f8f83d",
+                  "name": "Windows_Config_Deploy",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "16819c92-071c-61b8-1bbb-9e53f85e8dbb",
+                  "name": "Windows_Service",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "16819cc4-5574-192c-2105-15a25d037fd1",
+                  "name": "Windows_COM",
+                  "color": "#D9182D",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              },
+              {
+                "tag": {
+                  "id": "3d48f2ba-af4c-4825-af48-250d98b4df73",
+                  "name": "Windows Web-Content",
+                  "color": "#EE3D96",
+                  "objectType": "Component"
+                },
+                "number": 999,
+                "type": "LESS_THAN"
+              }
+            ],
+            "user": "andrem6",
+            "security": {
+              "read": true,
+              "Create Application Templates": true,
+              "Delete": true,
+              "Edit Basic Settings": true,
+              "Manage Blueprints": true,
+              "Manage Component Tags": true,
+              "Manage Environment Templates": true,
+              "Manage Processes": true,
+              "Manage Properties": true,
+              "Manage Teams": true,
+              "View Application Templates": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

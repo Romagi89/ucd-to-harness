@@ -1,0 +1,12 @@
+service:
+  name: orderops-agent
+  identifier: OrderOps_orderops_agent
+  tags:
+    runtime: dotnet
+    MSI_Deploy: 'true'
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: my_org
+  projectIdentifier: my_project

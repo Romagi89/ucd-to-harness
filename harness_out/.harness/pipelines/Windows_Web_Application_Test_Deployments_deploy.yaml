@@ -1,5 +1,5 @@
 pipeline:
-  name: Windows Web Application Test Deployments - deploy
+  name: Windows Web Application Test Deployments deploy
   identifier: Windows_Web_Application_Test_Deployments_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
@@ -7,17 +7,18 @@ pipeline:
     bsa: Cloud Operations
   stages:
   - stage:
-      name: IIS_Web_Package
-      identifier: IIS_Web_Package
+      name: Deploy IIS_Web_Package
+      identifier: Deploy_IIS_Web_Package
       type: Deployment
       spec:
         deploymentType: WinRm
         service:
-          serviceRef: IIS_Web_Package
+          serviceRef: Windows_Web_Application_Test_Deployments_IIS_Web_Package
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
           - step:
@@ -25,25 +26,25 @@ pipeline:
               identifier: Deploy
               type: ShellScript
               spec:
-                shell: PowerShell
+                shell: Bash
                 onDelegate: true
                 source:
                   type: Inline
                   spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      IIS_Web_Package"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: Restart_AppPool
-      identifier: Restart_AppPool
+      name: Deploy Restart_AppPool
+      identifier: Deploy_Restart_AppPool
       type: Deployment
       spec:
         deploymentType: WinRm
         service:
-          serviceRef: Restart_AppPool
+          serviceRef: Windows_Web_Application_Test_Deployments_Restart_AppPool
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
           - step:
@@ -51,25 +52,25 @@ pipeline:
               identifier: Deploy
               type: ShellScript
               spec:
-                shell: PowerShell
+                shell: Bash
                 onDelegate: true
                 source:
                   type: Inline
                   spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Restart_AppPool"'
+                    script: 'echo TODO: implement deployment'
   - stage:
-      name: Windows_Service_Dummy
-      identifier: Windows_Service_Dummy
+      name: Deploy Windows_Service_Dummy
+      identifier: Deploy_Windows_Service_Dummy
       type: Deployment
       spec:
         deploymentType: WinRm
         service:
-          serviceRef: Windows_Service_Dummy
+          serviceRef: Windows_Web_Application_Test_Deployments_Windows_Service_Dummy
         environment:
           environmentRef: <+input>
+          deployToAll: true
           infrastructureDefinitions:
-          - identifier: <+input>
+          - identifier: input
         execution:
           steps:
           - step:
@@ -77,10 +78,9 @@ pipeline:
               identifier: Deploy
               type: ShellScript
               spec:
-                shell: PowerShell
+                shell: Bash
                 onDelegate: true
                 source:
                   type: Inline
                   spec:
-                    script: 'Write-Host "TODO: implement deployment for component:
-                      Windows_Service_Dummy"'
+                    script: 'echo TODO: implement deployment'
