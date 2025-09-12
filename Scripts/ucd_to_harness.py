@@ -1,31 +1,40 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-UCD → Harness NG converter (clean YAML + reusable templates)
+UCD → Harness NG converter (multi-file, clean YAML, reusable templates)
 
-- Python 3.9+ compatible (no 3.10-style unions).
+- Python 3.9+ compatible.
+- Accepts multiple --input files (repeatable or comma-separated) and/or --input-dir.
+- Recursively scans a directory if --recursive is used (defaults to *.json).
 - Produces Harness-compliant YAML (indentation, booleans, structure).
 - Sanitizes all identifiers to [A-Za-z0-9_]{1,128}.
+- Ensures globally unique Service identifiers: {AppName}_{ComponentName}.
 - Injects orgIdentifier / projectIdentifier into top-level entities.
 - Matches reusable StepGroup templates via .harness/template-registry.yaml.
 - Re-parses written YAML for quick validation.
 
-Usage:
+Examples:
+  # process a whole folder of exports
   python Scripts/ucd_to_harness.py \
-    --input raw_files/ucd-export.json \
-    --out harness_out \
-    --org my_org --project my_project \
-    [--registry .harness/template-registry.yaml] [--first-match]
+    --input-dir ucd_input_files \
+    --out harness_out --org my_org --project my_project
 
-Output:
-  harness_out/.harness/services/*.yaml
-  harness_out/.harness/pipelines/*.yaml
+  # process specific files
+  python Scripts/ucd_to_harness.py \
+    --input ucd_input_files/a.json --input ucd_input_files/b.json \
+    --out harness_out --org my_org --project my_project
+
+  # or comma-separated
+  python Scripts/ucd_to_harness.py \
+    --input ucd_input_files/a.json,ucd_input_files/b.json \
+    --out harness_out --org my_org --project my_project
 """
 
 import os
 import re
 import sys
 import json
+import glob
 import yaml
 import argparse
 from typing import Any, Dict, List, Optional, Tuple
@@ -183,7 +192,6 @@ def _build_template_inputs(inputs: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     """Transform registry inputs into Harness templateInputs structure."""
     if not inputs:
         return None
-    # Currently we support step-group level variables
     vars_map = inputs.get("variables") or {}
     if not vars_map:
         return None
@@ -241,7 +249,6 @@ def match_stepgroups_for_component(app_name: str,
 # -----------------------
 def infer_deployment_type(app_tags: List[str], comp_tags: List[str]) -> str:
     all_tags = " ".join(app_tags + comp_tags).lower()
-    # Simple heuristics: TAS vs WinRm vs Custom
     if any(x in all_tags for x in [" tas", "pcf", "tanzu", "cloud foundry"]):
         return "TAS"
     if any(x in all_tags for x in ["iis", "windows_service", "windows service", "msi_deploy", "windows web-content"]):
@@ -308,7 +315,7 @@ def build_stage_for_component(
             sg_block["stepGroup"]["template"]["templateInputs"] = sg["templateInputs"]
         steps.append(sg_block)
 
-    # Safe placeholder (you can remove later)
+    # Safe placeholder
     steps.append({
         "step": {
             "name": "Deploy",
@@ -343,11 +350,52 @@ def build_pipeline_payload(pipeline_name: str,
 
 
 # -----------------------
+# File collection helpers
+# -----------------------
+def collect_input_files(inputs: List[str],
+                        input_dir: Optional[str],
+                        glob_pattern: str,
+                        recursive: bool) -> List[str]:
+    files: List[str] = []
+
+    # explicit files (allow comma-separated and repeated flags)
+    for item in inputs or []:
+        for part in [p.strip() for p in item.split(",") if p.strip()]:
+            if os.path.isdir(part):
+                # if a dir is accidentally passed via --input, scan it with pattern
+                pattern = os.path.join(part, "**", glob_pattern) if recursive else os.path.join(part, glob_pattern)
+                files.extend(glob.glob(pattern, recursive=recursive))
+            else:
+                files.append(part)
+
+    # directory scan
+    if input_dir:
+        pattern = os.path.join(input_dir, "**", glob_pattern) if recursive else os.path.join(input_dir, glob_pattern)
+        files.extend(glob.glob(pattern, recursive=recursive))
+
+    # normalize & dedupe (preserve order)
+    normed = []
+    seen = set()
+    for f in files:
+        p = os.path.abspath(f)
+        if os.path.isfile(p) and p.endswith(".json") and p not in seen:
+            seen.add(p)
+            normed.append(p)
+    return normed
+
+
+# -----------------------
 # Main
 # -----------------------
 def main() -> None:
     parser = argparse.ArgumentParser(description="Convert UCD export JSON to Harness YAML")
-    parser.add_argument("--input", required=True, help="Path to UCD export JSON")
+    # new multi-input options
+    parser.add_argument("--input", action="append",
+                        help="Path(s) to UCD export JSON. Repeat flag or comma-separate. May include directories.")
+    parser.add_argument("--input-dir", help="Directory containing UCD JSON files (e.g., ucd_input_files/)")
+    parser.add_argument("--glob", default="*.json", help="Glob pattern for --input-dir (default: *.json)")
+    parser.add_argument("--recursive", action="store_true", help="Recurse into subfolders when using --input-dir or directory passed via --input")
+
     parser.add_argument("--out", required=True, help="Output folder (root for .harness)")
     parser.add_argument("--org", required=True, help="Harness orgIdentifier")
     parser.add_argument("--project", required=True, help="Harness projectIdentifier")
@@ -357,64 +405,88 @@ def main() -> None:
                         help="If set, stop after the first matching template rule per component")
     args = parser.parse_args()
 
+    # collect files
+    files = collect_input_files(args.input or [], args.input_dir, args.glob, args.recursive)
+    if not files:
+        print("ERROR: No input files found. Use --input <file>[,file2...] and/or --input-dir <dir>.")
+        sys.exit(2)
+
     out_root = os.path.join(args.out, ".harness")
     services_dir = os.path.join(out_root, "services")
     pipelines_dir = os.path.join(out_root, "pipelines")
     os.makedirs(services_dir, exist_ok=True)
     os.makedirs(pipelines_dir, exist_ok=True)
 
-    # Load inputs
-    ucd = load_ucd_json(args.input)
     registry = load_registry(args.registry)
 
-    total_apps = 0
-    for app in (ucd.get("applications") or []):
-        app_meta = app.get("application") or {}
-        app_name = app_meta.get("name") or "Application"
-        app_tags_flat = collect_tags_flat(app_meta.get("tags") or [])
-        app_tags_map = collect_tags_map(app_meta.get("tags") or [])
+    grand_total_apps = 0
+    grand_total_services = 0
 
-        stages: List[Dict[str, Any]] = []
-        service_count = 0
+    for idx, path in enumerate(files, 1):
+        print(f"\n[{idx}/{len(files)}] Processing: {path}")
+        try:
+            ucd = load_ucd_json(path)
+        except Exception as e:
+            print(f"  Skipping (bad JSON): {e}")
+            continue
 
-        # Components → Services + Stages
-        for comp in (app.get("components") or []):
-            comp_name = comp.get("name") or "Component"
-            comp_id = comp.get("id") or comp_name
-            comp_tags_flat = collect_tags_flat(comp.get("tags") or [])
-            comp_tags_map = collect_tags_map(comp.get("tags") or [])
+        file_app_count = 0
+        file_svc_count = 0
 
-            # Build & write Service
-            svc_identifier = sanitize_identifier(comp_name)
-            svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
-            svc_path = os.path.join(services_dir, f"{svc_identifier}.yaml")
-            write_yaml(svc_path, svc_yaml, args.org, args.project)
-            service_count += 1
+        for app in (ucd.get("applications") or []):
+            app_meta = app.get("application") or {}
+            app_name = app_meta.get("name") or "Application"
+            app_tags_flat = collect_tags_flat(app_meta.get("tags") or [])
+            app_tags_map = collect_tags_map(app_meta.get("tags") or [])
 
-            # Match templates
-            matched = match_stepgroups_for_component(
-                app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match
-            )
+            stages: List[Dict[str, Any]] = []
+            service_count = 0
 
-            # DeploymentType heuristic
-            deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
+            # Components → Services + Stages
+            for comp in (app.get("components") or []):
+                comp_name = comp.get("name") or "Component"
+                comp_tags_flat = collect_tags_flat(comp.get("tags") or [])
+                comp_tags_map = collect_tags_map(comp.get("tags") or [])
 
-            # Build stage
-            stage_name = f"Deploy {comp_name}"
-            stage = build_stage_for_component(svc_identifier, stage_name, deployment_type, matched)
-            stages.append(stage)
+                # Globally unique service identifier (App + Component)
+                svc_identifier = sanitize_identifier(f"{app_name}_{comp_name}")
 
-        # Build & write Pipeline (one per application)
-        pipeline_name = f"{app_name} deploy"
-        pipeline_id = f"{app_name}_deploy"
-        pipeline_yaml = build_pipeline_payload(pipeline_name, pipeline_id, args.org, args.project, stages, app_tags_map)
-        pipe_path = os.path.join(pipelines_dir, f"{sanitize_identifier(pipeline_id)}.yaml")
-        write_yaml(pipe_path, pipeline_yaml, args.org, args.project)
+                # Build & write Service
+                svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
+                svc_path = os.path.join(services_dir, f"{svc_identifier}.yaml")
+                write_yaml(svc_path, svc_yaml, args.org, args.project)
+                service_count += 1
+                file_svc_count += 1
 
-        total_apps += 1
-        print(f"Converted application: {app_name}  ->  {service_count} services, 1 pipeline")
+                # Match templates
+                matched = match_stepgroups_for_component(
+                    app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match
+                )
 
-    print(f"\nDone. Output written under: {out_root}")
+                # DeploymentType heuristic
+                deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
+
+                # Build stage
+                stage_name = f"Deploy {comp_name}"
+                stage = build_stage_for_component(svc_identifier, stage_name, deployment_type, matched)
+                stages.append(stage)
+
+            # Build & write Pipeline (one per application)
+            pipeline_name = f"{app_name} deploy"
+            pipeline_id = f"{app_name}_deploy"
+            pipeline_yaml = build_pipeline_payload(pipeline_name, pipeline_id, args.org, args.project, stages, app_tags_map)
+            pipe_path = os.path.join(pipelines_dir, f"{sanitize_identifier(pipeline_id)}.yaml")
+            write_yaml(pipe_path, pipeline_yaml, args.org, args.project)
+
+            file_app_count += 1
+            print(f"  Converted application: {app_name}  ->  {service_count} services, 1 pipeline")
+
+        grand_total_apps += file_app_count
+        grand_total_services += file_svc_count
+        print(f"  File summary: {file_app_count} applications, {file_svc_count} services")
+
+    print(f"\nAll done. Processed {len(files)} file(s), {grand_total_apps} applications, {grand_total_services} services.")
+    print(f"Output written under: {out_root}")
 
 
 if __name__ == "__main__":
