@@ -1,343 +1,420 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-Convert IBM UrbanCode Deploy (UCD) JSON export to Harness YAML resources.
+UCD → Harness NG converter (clean YAML + reusable templates)
 
-Outputs:
-  out_dir/
-    .harness/
-      services/<service>.yaml             # one per UCD component
-      pipelines/<app>_deploy.yaml         # one per UCD application
-
-Features:
-- Infers deployment type per application: WinRm (Windows/IIS/MSI/COM), TAS (PCF/CF/TAS), or Ssh (default/Informatica).
-- Maps UCD tags -> Harness tags.
-- Creates one Deployment stage per component.
-- Optionally injects a reusable Step Group template (Java/Gradle library) into matched stages.
+- Python 3.9+ compatible (no 3.10-style unions).
+- Produces Harness-compliant YAML (indentation, booleans, structure).
+- Sanitizes all identifiers to [A-Za-z0-9_]{1,128}.
+- Injects orgIdentifier / projectIdentifier into top-level entities.
+- Matches reusable StepGroup templates via .harness/template-registry.yaml.
+- Re-parses written YAML for quick validation.
 
 Usage:
-  python ucd_to_harness.py \
-    --input ucd.json \
+  python Scripts/ucd_to_harness.py \
+    --input raw_files/ucd-export.json \
     --out harness_out \
     --org my_org --project my_project \
-    --gradle-template-ref Java_Gradle_Build \
-    --gradle-template-version v1 \
-    --gradle-match "java|gradle|jar|war"
+    [--registry .harness/template-registry.yaml] [--first-match]
 
-Requires:
-  pip install pyyaml
+Output:
+  harness_out/.harness/services/*.yaml
+  harness_out/.harness/pipelines/*.yaml
 """
 
-import argparse
-import json
 import os
 import re
-from typing import Dict, List, Tuple, Any
+import sys
+import json
+import yaml
+import argparse
+from typing import Any, Dict, List, Optional, Tuple
 
-try:
-    import yaml
-except ImportError:
-    raise SystemExit("Missing dependency: PyYAML. Install with: python -m pip install pyyaml")
-
-ID_MAX_LEN = 128
-
-
-# --------------------------
-# Helpers
-# --------------------------
-
-def sanitize_identifier(name: str) -> str:
-    """Convert an arbitrary name to a Harness-safe identifier (A-Za-z0-9_)."""
-    if not name:
-        return "id"
-    s = re.sub(r"[^A-Za-z0-9_]", "_", name.strip())
-    if not re.match(r"[A-Za-z_]", s):
-        s = "_" + s
-    return s[:ID_MAX_LEN]
+# -----------------------
+# Identifier sanitation
+# -----------------------
+_ID_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]{0,127}$")
+_SAN = re.compile(r"[^A-Za-z0-9_]+")
 
 
-def split_tag(tag_name: str) -> Tuple[str, str]:
-    """Convert 'key:value' style tags to (key, value). If no ':', return (name, "true")."""
-    if ":" in tag_name:
-        key, val = tag_name.split(":", 1)
-        key = key.strip() or "tag"
-        val = val.strip() or "true"
-        return key, val
-    return (tag_name.strip(), "true")
+def sanitize_identifier(s: str) -> str:
+    s = (s or "id").strip()
+    s = _SAN.sub("_", s)
+    if not s or not re.match(r"^[A-Za-z_]", s):
+        s = f"_{s}" if s else "_id"
+    s = re.sub(r"_+", "_", s).strip("_")
+    return (s or "id")[:128]
 
 
-def ucd_tags_to_harness(tags: List[Dict[str, Any]]) -> Dict[str, str]:
-    """Map UCD tag array (with 'name') to Harness tags dict."""
-    out: Dict[str, str] = {}
-    for t in tags or []:
-        name = (t.get("name") or "").strip()
-        if not name:
+def _walk_fix_ids(obj: Any) -> None:
+    """Recursively sanitize 'identifier' fields inside nested structures."""
+    if isinstance(obj, dict):
+        for k, v in list(obj.items()):
+            if k == "identifier" and isinstance(v, str) and not _ID_RE.match(v):
+                obj[k] = sanitize_identifier(v)
+            _walk_fix_ids(v)
+    elif isinstance(obj, list):
+        for i in obj:
+            _walk_fix_ids(i)
+
+
+# -----------------------
+# YAML IO helpers
+# -----------------------
+def _ensure_meta(payload: Dict[str, Any], kind: str, org: str, proj: str) -> None:
+    node = payload.get(kind)
+    if not isinstance(node, dict):
+        return
+    node.setdefault("orgIdentifier", org)
+    node.setdefault("projectIdentifier", proj)
+    if "identifier" in node:
+        if not isinstance(node["identifier"], str) or not _ID_RE.match(node["identifier"]):
+            node["identifier"] = sanitize_identifier(str(node["identifier"]))
+    elif "name" in node:
+        node["identifier"] = sanitize_identifier(str(node["name"]))
+
+
+def write_yaml(path: str, payload: Dict[str, Any], org: str, proj: str) -> None:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    # Add meta to known tops
+    for top in ("pipeline", "service", "template", "environment", "infrastructureDefinition"):
+        if top in payload:
+            _ensure_meta(payload, top, org, proj)
+    # Recursive identifier cleanup
+    _walk_fix_ids(payload)
+    # Dump + validate
+    text = yaml.safe_dump(payload, sort_keys=False, default_flow_style=False)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+    # Parse back to catch bad YAML early
+    with open(path, "r", encoding="utf-8") as f:
+        yaml.safe_load(f)
+
+
+# -----------------------
+# UCD parsing helpers
+# -----------------------
+def load_ucd_json(path: str) -> Dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _parse_tag(name: str) -> Tuple[str, str]:
+    """Convert 'key:value' to (key, value); bare tag → (tag, 'true')."""
+    name = (name or "").strip()
+    if ":" in name:
+        k, v = name.split(":", 1)
+        return k.strip(), v.strip()
+    return name, "true"
+
+
+def collect_tags_map(tag_objs: List[Dict[str, Any]]) -> Dict[str, str]:
+    tags: Dict[str, str] = {}
+    for t in tag_objs or []:
+        raw = t.get("name") if isinstance(t, dict) else str(t)
+        k, v = _parse_tag(str(raw))
+        if k:
+            tags[k] = v
+    return tags
+
+
+def collect_tags_flat(tag_objs: List[Dict[str, Any]]) -> List[str]:
+    flat: List[str] = []
+    for t in tag_objs or []:
+        raw = t.get("name") if isinstance(t, dict) else str(t)
+        flat.append(str(raw))
+    return flat
+
+
+# -----------------------
+# Registry (templates) matching
+# -----------------------
+def load_registry(path: Optional[str]) -> List[Dict[str, Any]]:
+    if not path:
+        return []
+    if not os.path.exists(path):
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    items = data.get("templates") or []
+    # Normalize structure
+    normalized: List[Dict[str, Any]] = []
+    for it in items:
+        if not isinstance(it, dict):
             continue
-        k, v = split_tag(name)
-        out[k] = v
-    return out
+        match = it.get("match") or {}
+        normalized.append({
+            "name": it.get("name") or it.get("templateRef") or "StepGroup",
+            "templateRef": it.get("templateRef"),
+            "versionLabel": it.get("versionLabel", "v1"),
+            "type": it.get("type", "StepGroup"),
+            "match": {
+                "tags_any": match.get("tags_any") or [],
+                "tags_all": match.get("tags_all") or [],
+                "any_regex": match.get("any_regex") or [],
+                "all_regex": match.get("all_regex") or [],
+            },
+            "inputs": it.get("inputs") or {},
+        })
+    return normalized
 
 
-def detect_deployment_type(app_name: str, component_names: List[str], all_tags: Dict[str, str]) -> str:
-    """
-    Heuristic to pick Harness deployment type: 'WinRm', 'TAS', or 'Ssh'.
-    """
-    hay = " ".join([app_name] + component_names + list(all_tags.keys()) + list(all_tags.values()))
-    hl = hay.lower()
+def _regex_match_any(patterns: List[str], hay: str) -> bool:
+    for p in patterns:
+        try:
+            if re.search(p, hay, re.IGNORECASE):
+                return True
+        except re.error:
+            continue
+    return False
 
-    # Windows/IIS markers
-    if any(m in hl for m in ["windows", "iis", "msi", "com", "dcom", "app pool", "app_pool"]):
-        return "WinRm"
-    # PCF / TAS markers
-    if any(m in hl for m in ["pcf", "tanzu", "cloud foundry", "tas"]):
+
+def _regex_match_all(patterns: List[str], hay: str) -> bool:
+    for p in patterns:
+        try:
+            if not re.search(p, hay, re.IGNORECASE):
+                return False
+        except re.error:
+            return False
+    return True
+
+
+def _build_template_inputs(inputs: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Transform registry inputs into Harness templateInputs structure."""
+    if not inputs:
+        return None
+    # Currently we support step-group level variables
+    vars_map = inputs.get("variables") or {}
+    if not vars_map:
+        return None
+    vars_list = []
+    for k, v in vars_map.items():
+        vars_list.append({"name": str(k), "type": "String", "value": str(v)})
+    return {"variables": vars_list}
+
+
+def match_stepgroups_for_component(app_name: str,
+                                   comp_name: str,
+                                   app_tags: List[str],
+                                   comp_tags: List[str],
+                                   registry: List[Dict[str, Any]],
+                                   first_match: bool = False) -> List[Dict[str, Any]]:
+    tags_set = set([t.lower() for t in app_tags + comp_tags])
+    hay = " ".join([app_name, comp_name] + app_tags + comp_tags)
+
+    matched: List[Dict[str, Any]] = []
+    for rule in registry:
+        m = rule.get("match", {})
+        tags_any = [t.lower() for t in m.get("tags_any", [])]
+        tags_all = [t.lower() for t in m.get("tags_all", [])]
+        any_regex = m.get("any_regex", [])
+        all_regex = m.get("all_regex", [])
+
+        ok = True
+        if tags_any:
+            ok = ok and (len(tags_set.intersection(tags_any)) > 0)
+        if ok and tags_all:
+            ok = ok and all(t in tags_set for t in tags_all)
+        if ok and any_regex:
+            ok = ok and _regex_match_any(any_regex, hay)
+        if ok and all_regex:
+            ok = ok and _regex_match_all(all_regex, hay)
+
+        if ok:
+            spec = {
+                "name": rule["name"],
+                "templateRef": rule["templateRef"],
+                "versionLabel": rule["versionLabel"],
+            }
+            ti = _build_template_inputs(rule.get("inputs") or {})
+            if ti:
+                spec["templateInputs"] = ti
+            matched.append(spec)
+            if first_match:
+                break
+
+    return matched
+
+
+# -----------------------
+# DeploymentType heuristic
+# -----------------------
+def infer_deployment_type(app_tags: List[str], comp_tags: List[str]) -> str:
+    all_tags = " ".join(app_tags + comp_tags).lower()
+    # Simple heuristics: TAS vs WinRm vs Custom
+    if any(x in all_tags for x in [" tas", "pcf", "tanzu", "cloud foundry"]):
         return "TAS"
-    # Informatica marker -> Ssh by default
-    if "informatica" in hl:
-        return "Ssh"
-    # Default
-    return "Ssh"
+    if any(x in all_tags for x in ["iis", "windows_service", "windows service", "msi_deploy", "windows web-content"]):
+        return "WinRm"
+    return "Custom"
 
 
-def looks_like_gradle(java_text: str, match_regex: str) -> bool:
-    """Return True if the text matches the Gradle/Java regex."""
-    try:
-        return re.search(match_regex, java_text, flags=re.IGNORECASE) is not None
-    except re.error:
-        # bad regex -> disable matching
-        return False
-
-
-def ensure_dirs(base_out: str) -> Tuple[str, str]:
-    services_dir = os.path.join(base_out, ".harness", "services")
-    pipelines_dir = os.path.join(base_out, ".harness", "pipelines")
-    os.makedirs(services_dir, exist_ok=True)
-    os.makedirs(pipelines_dir, exist_ok=True)
-    return services_dir, pipelines_dir
-
-
-def safe_dump_yaml(obj: Dict[str, Any]) -> str:
-    return yaml.safe_dump(obj, sort_keys=False, default_flow_style=False)
-
-
-# --------------------------
+# -----------------------
 # Builders
-# --------------------------
-
-def build_service_yaml(name: str, org: str, project: str, tags: Dict[str, str], svc_type: str) -> Dict[str, Any]:
-    """Build a minimal Harness Service YAML dict."""
+# -----------------------
+def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) -> Dict[str, Any]:
     return {
         "service": {
             "name": name,
-            "identifier": sanitize_identifier(name),
-            "orgIdentifier": org,
-            "projectIdentifier": project,
-            "tags": tags or {},
+            "identifier": sanitize_identifier(identifier),
+            "tags": tags_map or {},
             "serviceDefinition": {
-                "type": svc_type,   # "WinRm" | "TAS" | "Ssh" | etc.
-                "spec": {}
+                "type": "Custom",
+                "spec": {"variables": []}
             }
         }
     }
 
 
-def build_pipeline_yaml(app_name: str,
-                        org: str,
-                        project: str,
-                        app_tags: Dict[str, str],
-                        stages: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Build a Harness Pipeline YAML dict with provided stages."""
-    return {
-        "pipeline": {
-            "name": f"{app_name} - deploy",
-            "identifier": sanitize_identifier(f"{app_name}_deploy"),
-            "orgIdentifier": org,
-            "projectIdentifier": project,
-            "tags": app_tags or {},
-            "stages": stages
+def build_stage_for_component(
+    svc_identifier: str,
+    stage_name: str,
+    deployment_type: str,
+    matched_stepgroups: List[Dict[str, Any]],
+) -> Dict[str, Any]:
+    stage = {
+        "stage": {
+            "name": stage_name,
+            "identifier": sanitize_identifier(stage_name),
+            "type": "Deployment",
+            "spec": {
+                "deploymentType": deployment_type,
+                "service": {"serviceRef": svc_identifier},
+                "environment": {
+                    "environmentRef": "<+input>",
+                    "deployToAll": True,
+                    "infrastructureDefinitions": [{"identifier": "<+input>"}],
+                },
+                "execution": {"steps": []},
+            },
         }
     }
+    steps = stage["stage"]["spec"]["execution"]["steps"]
 
-
-def build_stage_for_component(comp_name: str,
-                              svc_identifier: str,
-                              deploy_type: str,
-                              gradle_template_ref: str = None,
-                              gradle_template_version: str = "v1",
-                              gradle_match_regex: str = r"java|gradle|jar|war",
-                              comp_tags_text: str = "") -> Dict[str, Any]:
-    """
-    Build a generic Deployment stage that targets the given service.
-    Environment/infra are runtime to let user choose at run time.
-    Optionally inject a Step Group template for Java/Gradle.
-    """
-    shell = "PowerShell" if deploy_type == "WinRm" else "Bash"
-    step_script = (
-        f'Write-Host "TODO: implement deployment for component: {comp_name}"'
-        if deploy_type == "WinRm"
-        else f'echo "TODO: implement deployment for component: {comp_name}"'
-    )
-
-    # Decide whether to inject the Gradle template
-    hay = f"{comp_name} {comp_tags_text}"
-    add_gradle = bool(gradle_template_ref) and looks_like_gradle(hay, gradle_match_regex)
-
-    steps: List[Dict[str, Any]] = []
-
-    if add_gradle:
-        steps.append({
+    # Inject StepGroup template calls
+    for sg in matched_stepgroups:
+        sg_name = sg["name"]
+        sg_block = {
             "stepGroup": {
-                "name": "Java/Gradle Build",
-                "identifier": "Java_Gradle_Build_Invocation",
+                "name": sg_name,
+                "identifier": sanitize_identifier(sg_name),
                 "template": {
-                    "templateRef": gradle_template_ref,
-                    "versionLabel": gradle_template_version,
-                    # Default inputs; adjust as desired or remove to make all runtime
-                    "templateInputs": {
-                        "variables": [
-                            {"name": "workingDir",  "type": "String", "value": "."},
-                            {"name": "gradleTasks", "type": "String", "value": "clean build"},
-                            {"name": "extraArgs",   "type": "String", "value": ""},
-                            {"name": "javaHome",    "type": "String", "value": ""}
-                        ]
-                    }
-                }
+                    "templateRef": sg["templateRef"],
+                    "versionLabel": sg.get("versionLabel", "v1"),
+                },
             }
-        })
+        }
+        if "templateInputs" in sg:
+            sg_block["stepGroup"]["template"]["templateInputs"] = sg["templateInputs"]
+        steps.append(sg_block)
 
-    # Always include a Deploy placeholder step
+    # Safe placeholder (you can remove later)
     steps.append({
         "step": {
             "name": "Deploy",
             "identifier": "Deploy",
             "type": "ShellScript",
             "spec": {
-                "shell": shell,
+                "shell": "Bash",
                 "onDelegate": True,
-                "source": {"type": "Inline", "spec": {"script": step_script}}
+                "source": {"type": "Inline", "spec": {"script": "echo TODO: implement deployment"}}
             }
         }
     })
+    return stage
 
+
+def build_pipeline_payload(pipeline_name: str,
+                           pipeline_id: str,
+                           org: str,
+                           proj: str,
+                           stages: List[Dict[str, Any]],
+                           pipeline_tags: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
     return {
-        "stage": {
-            "name": comp_name,
-            "identifier": sanitize_identifier(comp_name),
-            "type": "Deployment",
-            "spec": {
-                "deploymentType": deploy_type,  # must match serviceDefinition.type
-                "service": {"serviceRef": svc_identifier},
-                "environment": {
-                    "environmentRef": "<+input>",  # pick Dev/QA/Prod at runtime
-                    "infrastructureDefinitions": [{"identifier": "<+input>"}]  # pick infra at runtime
-                },
-                "execution": {"steps": steps}
-            }
+        "pipeline": {
+            "name": pipeline_name,
+            "identifier": sanitize_identifier(pipeline_id),
+            "orgIdentifier": org,
+            "projectIdentifier": proj,
+            "tags": pipeline_tags or {},
+            "stages": stages
         }
     }
 
 
-# --------------------------
-# Main conversion
-# --------------------------
-
-def convert_ucd_to_harness(ucd: Dict[str, Any],
-                           out_dir: str,
-                           org: str,
-                           project: str,
-                           gradle_template_ref: str,
-                           gradle_template_version: str,
-                           gradle_match_regex: str) -> None:
-    services_dir, pipelines_dir = ensure_dirs(out_dir)
-
-    apps = ucd.get("applications") or []
-    if not apps:
-        print("No applications found in UCD JSON.")
-        return
-
-    for app_entry in apps:
-        app = app_entry.get("application", {})
-        app_name = app.get("name", "Application")
-        app_tags = ucd_tags_to_harness(app.get("tags", []))
-
-        # Gather component info
-        components = app_entry.get("components", []) or []
-        comp_names = [c.get("name", "") for c in components]
-
-        # Aggregate tags for type detection
-        comp_tags_agg: Dict[str, str] = {}
-        for c in components:
-            comp_tags_agg.update(ucd_tags_to_harness(c.get("tags", [])))
-
-        deploy_type = detect_deployment_type(app_name, comp_names, {**app_tags, **comp_tags_agg})
-
-        # Build Services for each component + corresponding stages
-        stages: List[Dict[str, Any]] = []
-        for comp in components:
-            comp_name = comp.get("name", "Component")
-            comp_tags = ucd_tags_to_harness(comp.get("tags", []))
-            comp_tags_text = " ".join([f"{k}:{v}" for k, v in comp_tags.items()])
-
-            svc_yaml = build_service_yaml(comp_name, org, project, comp_tags, deploy_type)
-            svc_identifier = svc_yaml["service"]["identifier"]
-
-            svc_filename = os.path.join(services_dir, f"{svc_identifier}.yaml")
-            with open(svc_filename, "w", encoding="utf-8") as f:
-                f.write(safe_dump_yaml(svc_yaml))
-
-            stages.append(
-                build_stage_for_component(
-                    comp_name=comp_name,
-                    svc_identifier=svc_identifier,
-                    deploy_type=deploy_type,
-                    gradle_template_ref=gradle_template_ref,
-                    gradle_template_version=gradle_template_version,
-                    gradle_match_regex=gradle_match_regex,
-                    comp_tags_text=comp_tags_text
-                )
-            )
-
-        # Build a pipeline for the application (if it has components)
-        if stages:
-            pipe_yaml = build_pipeline_yaml(app_name, org, project, app_tags, stages)
-            pipe_identifier = pipe_yaml["pipeline"]["identifier"]
-            pipe_filename = os.path.join(pipelines_dir, f"{pipe_identifier}.yaml")
-            with open(pipe_filename, "w", encoding="utf-8") as f:
-                f.write(safe_dump_yaml(pipe_yaml))
-
-        print(f"Converted application: {app_name}  ->  {len(components)} services, {1 if stages else 0} pipeline")
-
-    print(f"\nDone. Output written under: {os.path.abspath(out_dir)}")
-
-
-# --------------------------
-# CLI
-# --------------------------
-
-def main():
-    parser = argparse.ArgumentParser(description="Convert UCD JSON export to Harness YAML.")
-    parser.add_argument("--input", "-i", required=True, help="Path to UCD JSON export file")
-    parser.add_argument("--out", "-o", required=True, help="Output directory")
+# -----------------------
+# Main
+# -----------------------
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Convert UCD export JSON to Harness YAML")
+    parser.add_argument("--input", required=True, help="Path to UCD export JSON")
+    parser.add_argument("--out", required=True, help="Output folder (root for .harness)")
     parser.add_argument("--org", required=True, help="Harness orgIdentifier")
     parser.add_argument("--project", required=True, help="Harness projectIdentifier")
-    parser.add_argument("--gradle-template-ref", default="Java_Gradle_Build",
-                        help="Harness StepGroup templateRef for Gradle (default: Java_Gradle_Build)")
-    parser.add_argument("--gradle-template-version", default="v1",
-                        help="Template versionLabel (default: v1)")
-    parser.add_argument("--gradle-match", default=r"java|gradle|jar|war",
-                        help="Regex to detect components that should call the Gradle template")
+    parser.add_argument("--registry", default=".harness/template-registry.yaml",
+                        help="Path to template registry YAML (optional)")
+    parser.add_argument("--first-match", action="store_true",
+                        help="If set, stop after the first matching template rule per component")
     args = parser.parse_args()
 
-    with open(args.input, "r", encoding="utf-8") as f:
-        ucd = json.load(f)
+    out_root = os.path.join(args.out, ".harness")
+    services_dir = os.path.join(out_root, "services")
+    pipelines_dir = os.path.join(out_root, "pipelines")
+    os.makedirs(services_dir, exist_ok=True)
+    os.makedirs(pipelines_dir, exist_ok=True)
 
-    convert_ucd_to_harness(
-        ucd=ucd,
-        out_dir=args.out,
-        org=args.org,
-        project=args.project,
-        gradle_template_ref=args.gradle_template_ref,
-        gradle_template_version=args.gradle_template_version,
-        gradle_match_regex=args.gradle_match
-    )
+    # Load inputs
+    ucd = load_ucd_json(args.input)
+    registry = load_registry(args.registry)
+
+    total_apps = 0
+    for app in (ucd.get("applications") or []):
+        app_meta = app.get("application") or {}
+        app_name = app_meta.get("name") or "Application"
+        app_tags_flat = collect_tags_flat(app_meta.get("tags") or [])
+        app_tags_map = collect_tags_map(app_meta.get("tags") or [])
+
+        stages: List[Dict[str, Any]] = []
+        service_count = 0
+
+        # Components → Services + Stages
+        for comp in (app.get("components") or []):
+            comp_name = comp.get("name") or "Component"
+            comp_id = comp.get("id") or comp_name
+            comp_tags_flat = collect_tags_flat(comp.get("tags") or [])
+            comp_tags_map = collect_tags_map(comp.get("tags") or [])
+
+            # Build & write Service
+            svc_identifier = sanitize_identifier(comp_name)
+            svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
+            svc_path = os.path.join(services_dir, f"{svc_identifier}.yaml")
+            write_yaml(svc_path, svc_yaml, args.org, args.project)
+            service_count += 1
+
+            # Match templates
+            matched = match_stepgroups_for_component(
+                app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match
+            )
+
+            # DeploymentType heuristic
+            deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
+
+            # Build stage
+            stage_name = f"Deploy {comp_name}"
+            stage = build_stage_for_component(svc_identifier, stage_name, deployment_type, matched)
+            stages.append(stage)
+
+        # Build & write Pipeline (one per application)
+        pipeline_name = f"{app_name} deploy"
+        pipeline_id = f"{app_name}_deploy"
+        pipeline_yaml = build_pipeline_payload(pipeline_name, pipeline_id, args.org, args.project, stages, app_tags_map)
+        pipe_path = os.path.join(pipelines_dir, f"{sanitize_identifier(pipeline_id)}.yaml")
+        write_yaml(pipe_path, pipeline_yaml, args.org, args.project)
+
+        total_apps += 1
+        print(f"Converted application: {app_name}  ->  {service_count} services, 1 pipeline")
+
+    print(f"\nDone. Output written under: {out_root}")
 
 
 if __name__ == "__main__":
