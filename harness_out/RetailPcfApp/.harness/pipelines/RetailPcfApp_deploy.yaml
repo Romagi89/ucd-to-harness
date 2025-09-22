@@ -1,19 +1,20 @@
 pipeline:
-  name: DataIngestor deploy
-  identifier: DataIngestor_deploy
+  name: RetailPcfApp deploy
+  identifier: RetailPcfApp_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
   tags:
-    language: python
+    platform: pcf
+    tas: 'true'
   stages:
   - stage:
-      name: Deploy dataloader-service
-      identifier: Deploy_dataloader_service
+      name: Deploy retail-api
+      identifier: Deploy_retail_api
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: TAS
         service:
-          serviceRef: DataIngestor_dataloader_service
+          serviceRef: RetailPcfApp_retail_api
         environment:
           environmentRef: <+input>
           deployToAll: true
@@ -32,14 +33,20 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
   - stage:
-      name: Deploy datapipe-cli
-      identifier: Deploy_datapipe_cli
+      name: Deploy retail-web
+      identifier: Deploy_retail_web
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: TAS
         service:
-          serviceRef: DataIngestor_datapipe_cli
+          serviceRef: RetailPcfApp_retail_web
         environment:
           environmentRef: <+input>
           deployToAll: true
@@ -58,3 +65,9 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback

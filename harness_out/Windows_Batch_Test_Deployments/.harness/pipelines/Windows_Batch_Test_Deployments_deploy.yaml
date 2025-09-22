@@ -1,24 +1,18 @@
 pipeline:
-  name: Javahosting Nitro Application Test Deployments deploy
-  identifier: Javahosting_Nitro_Application_Test_Deployments_deploy
+  name: Windows-Batch Test Deployments deploy
+  identifier: Windows_Batch_Test_Deployments_deploy
   orgIdentifier: my_org
   projectIdentifier: my_project
-  tags:
-    bsa: Developer Experience and Platform
-    org: Infrastructure and Operations
-    appId: '8006'
-    regulated: 'false'
-    ci_name: Concourse CI
-    criticality: critical
+  tags: {}
   stages:
   - stage:
-      name: Deploy Javahosting_Nitro_Application_Test_Deployments_Properties
-      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_Properties
+      name: Deploy Windows_Web_Application_Test_Deployments_COM
+      identifier: Deploy_Windows_Web_Application_Test_Deployments_COM
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: WinRm
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_Properties
+          serviceRef: Windows_Batch_Test_Deployments_Windows_Web_Application_Test_Deployments_COM
         environment:
           environmentRef: <+input>
           deployToAll: true
@@ -37,14 +31,20 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
   - stage:
-      name: Deploy Javahosting_Nitro_Application_Test_Deployments_WAR
-      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_WAR
+      name: Deploy Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test
+      identifier: Deploy_Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: WinRm
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_WAR
+          serviceRef: Windows_Batch_Test_Deployments_Windows_Web_Application_Test_Deployments_UCD_Windows_Application_Batch_Test
         environment:
           environmentRef: <+input>
           deployToAll: true
@@ -63,14 +63,20 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
   - stage:
-      name: Deploy Javahosting_Nitro_Application_Test_Deployments_Web_Content
-      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_Web_Content
+      name: Deploy Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
+      identifier: Deploy_Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: WinRm
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_Web_Content
+          serviceRef: Windows_Batch_Test_Deployments_Windows_Web_Application_Test_Deployments_UCD_Windows_Config_Test
         environment:
           environmentRef: <+input>
           deployToAll: true
@@ -89,14 +95,20 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
   - stage:
-      name: Deploy Javahosting_Nitro_Application_Test_Deployments_zero_downtime
-      identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_zero_downtime
+      name: Deploy Windows_Web_Application_Test_Deployments_Windows_Service
+      identifier: Deploy_Windows_Web_Application_Test_Deployments_Windows_Service
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: WinRm
         service:
-          serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_zero_downtime
+          serviceRef: Windows_Batch_Test_Deployments_Windows_Web_Application_Test_Deployments_Windows_Service
         environment:
           environmentRef: <+input>
           deployToAll: true
@@ -115,3 +127,9 @@ pipeline:
                   type: Inline
                   spec:
                     script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback

@@ -3,7 +3,11 @@ service:
   identifier: Informatica_PowerCenter_1930_DPS_Import_Objects
   tags:
     bsa: Enterprise Data Office
+    org: Technology Enterprise Solutions
     ci_name: Informatica PowerCenter
+    appId: '1930'
+    criticality: critical
+    regulated: 'true'
     Informatica_Import_Objects: 'true'
   serviceDefinition:
     type: Custom
