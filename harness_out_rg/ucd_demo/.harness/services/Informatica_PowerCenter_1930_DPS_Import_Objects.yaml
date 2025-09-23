@@ -1,0 +1,13 @@
+service:
+  name: 1930_DPS_Import_Objects
+  identifier: Informatica_PowerCenter_1930_DPS_Import_Objects
+  tags:
+    bsa: Enterprise Data Office
+    ci_name: Informatica PowerCenter
+    Informatica_Import_Objects: 'true'
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: my_org_rg
+  projectIdentifier: my_project_rg

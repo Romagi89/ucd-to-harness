@@ -1,0 +1,13 @@
+service:
+  name: customerportal-api
+  identifier: CustomerPortal_customerportal_api
+  tags:
+    bsa: Customer Solutions
+    language: java
+    build: gradle
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: my_org_rg
+  projectIdentifier: my_project_rg
