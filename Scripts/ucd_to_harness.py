@@ -12,7 +12,19 @@ UCD → Harness NG converter (multi-file, clean YAML, reusable templates)
 - Injects orgIdentifier / projectIdentifier into top-level entities.
 - Matches reusable StepGroup templates via .harness/template-registry.yaml.
 - Re-parses written YAML for quick validation.
+---------------------
+# Sweep a directory of UCD exports and group output per file
+python Scripts/ucd_to_harness.py \
+  --input-dir ucd_input_files --recursive \
+  --out harness_out --org my_org --project my_project \
+  --group-by file
 
+# Group by application name
+python Scripts/ucd_to_harness.py \
+  --input-dir ucd_input_files \
+  --out harness_out --org my_org --project my_project \
+  --group-by application
+---------------------
 Examples:
   # process a whole folder of exports
   python Scripts/ucd_to_harness.py \
