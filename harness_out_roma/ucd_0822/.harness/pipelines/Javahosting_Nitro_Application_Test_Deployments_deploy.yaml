@@ -16,7 +16,7 @@ pipeline:
       identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_Properties
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: AWS_SAM
         service:
           serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_Properties
         environment:
@@ -48,7 +48,7 @@ pipeline:
       identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_WAR
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: AWS_SAM
         service:
           serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_WAR
         environment:
@@ -80,7 +80,7 @@ pipeline:
       identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_Web_Content
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: AWS_SAM
         service:
           serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_Web_Content
         environment:
@@ -112,7 +112,7 @@ pipeline:
       identifier: Deploy_Javahosting_Nitro_Application_Test_Deployments_zero_downtime
       type: Deployment
       spec:
-        deploymentType: Custom
+        deploymentType: AWS_SAM
         service:
           serviceRef: Javahosting_Nitro_Application_Test_Deployments_Javahosting_Nitro_Application_Test_Deployments_zero_downtime
         environment:
