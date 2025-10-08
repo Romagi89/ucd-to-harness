@@ -10,7 +10,7 @@ service:
     regulated: 'true'
     Informatica_Deployment_Group: 'true'
   serviceDefinition:
-    type: AWS_SAM
+    type: Custom
     spec:
       variables: []
   orgIdentifier: default

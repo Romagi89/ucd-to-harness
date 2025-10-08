@@ -16,7 +16,7 @@ pipeline:
       identifier: Deploy_1930_DPS_Deploy_Multiple_Deployment_Groups
       type: Deployment
       spec:
-        deploymentType: AWS_SAM
+        deploymentType: Custom
         service:
           serviceRef: Informatica_PowerCenter_1930_DPS_Deploy_Multiple_Deployment_Groups
         environment:
@@ -48,7 +48,7 @@ pipeline:
       identifier: Deploy_1930_DPS_Folder_Migration
       type: Deployment
       spec:
-        deploymentType: AWS_SAM
+        deploymentType: Custom
         service:
           serviceRef: Informatica_PowerCenter_1930_DPS_Folder_Migration
         environment:
@@ -80,7 +80,7 @@ pipeline:
       identifier: Deploy_1930_DPS_Import_Objects
       type: Deployment
       spec:
-        deploymentType: AWS_SAM
+        deploymentType: Custom
         service:
           serviceRef: Informatica_PowerCenter_1930_DPS_Import_Objects
         environment:
@@ -112,7 +112,7 @@ pipeline:
       identifier: Deploy_1930_Informatica_PowerCenter_DeploymentGroup
       type: Deployment
       spec:
-        deploymentType: AWS_SAM
+        deploymentType: Custom
         service:
           serviceRef: Informatica_PowerCenter_1930_Informatica_PowerCenter_DeploymentGroup
         environment:
