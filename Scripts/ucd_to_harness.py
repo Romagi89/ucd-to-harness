@@ -17,9 +17,6 @@ Examples:
 
 Examples
 --------
-# process specific files
-  python Scripts/ucd_to_harness.py --input ucd_input_files/a.json --input ucd_input_files/b.json --out harness_out --org my_org --project my_project
-
 # Sweep a directory of UCD exports and group output per file
 python Scripts/ucd_to_harness.py \
   --input-dir ucd_input_files --recursive \
@@ -107,7 +104,7 @@ def _walk_fix_ids_and_names(obj: Any) -> None:
 # --------------------------------------------------------------------
 VALID_DEPLOYMENT_TYPES = {
     # keep a conservative list; fall back to Custom when unsure
-    "Custom", "WinRm", "TAS", "Kubernetes", "SSH", "NativeHelm", "ECS", "AzureWebApp", "ServerlessAwsLambda"
+    "CustomDeployment", "WinRm", "TAS", "Kubernetes", "SSH", "NativeHelm", "ECS", "AzureWebApp", "ServerlessAwsLambda", "GoogleCloudRun"
 }
 SYNONYMS = {
     "pcf": "TAS", "tanzu": "TAS", "cloud foundry": "TAS", "tas": "TAS",
@@ -120,18 +117,18 @@ def infer_deployment_type(app_tags: List[str], comp_tags: List[str]) -> str:
     for key, val in SYNONYMS.items():
         if key in hay:
             return val
-    return "Custom"
+    return "CustomDeployment"
 
 def normalize_deployment_type(dt: Optional[str]) -> str:
     if not dt:
-        return "Custom"
+        return "CustomDeployment"
     if dt not in VALID_DEPLOYMENT_TYPES:
         # try mapping synonyms
         low = dt.lower()
         for k, v in SYNONYMS.items():
             if k == low:
                 return v
-        return "Custom"
+        return "CustomDeployment"
     return dt
 
 # --------------------------------------------------------------------
