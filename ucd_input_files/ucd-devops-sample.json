@@ -1,0 +1,195 @@
+{
+  "metadata": {
+    "export_date": "2025-10-09T00:00:00Z",
+    "tool_version": "devops-sample-1.0",
+    "total_applications": 1
+  },
+  "applications": [
+    {
+      "application": {
+        "id": "274c62cc-d377-4c9c-a1b6-f26c3272d5ea",
+        "securityResourceId": "90672bd4-78ea-4c69-a911-bdf7ae56ae72",
+        "name": "NitroApp DevOps",
+        "description": "Sample app to generate a DevOps pipeline with Init\u2192Build\u2192Test\u2192Publish\u2192Deploy\u2192Verify\u2192Notify stages via tags.",
+        "created": 1760023871993,
+        "enforceCompleteSnapshots": false,
+        "active": true,
+        "tags": [
+          {
+            "name": "pipeline:init",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "name": "build:gradle",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "name": "tests:junit",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "name": "publish:docker",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "name": "deploy:k8s",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "name": "verify:smoke",
+            "color": "#0047BB",
+            "objectType": "Application"
+          },
+          {
+            "name": "notify:slack",
+            "color": "#0047BB",
+            "objectType": "Application"
+          }
+        ],
+        "deleted": false,
+        "templateVersion": -1,
+        "templateId": "6e577fb8-6a76-4a82-b82f-d0aa55ebb127",
+        "onlyChangedVersions": true,
+        "useWizard": false,
+        "user": "sample_user"
+      },
+      "components": [
+        {
+          "id": "c26a1a88-1212-41ac-b5d0-f8ba30eb57da",
+          "securityResourceId": "bd0049ab-e3fb-451a-8271-9bfbf46da722",
+          "name": "nitro-web",
+          "description": "Primary web component for NitroApp DevOps",
+          "created": 1760023871993,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            {
+              "name": "pipeline:init",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "build:gradle",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "tests:junit",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "publish:docker",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "deploy:k8s",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "verify:smoke",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "notify:slack",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "templateTags": [
+            {
+              "name": "pipeline:init",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "build:gradle",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "tests:junit",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "publish:docker",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "deploy:k8s",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "verify:smoke",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            },
+            {
+              "name": "notify:slack",
+              "color": "#17AF4B",
+              "objectType": "Component"
+            }
+          ],
+          "user": "sample_user"
+        }
+      ],
+      "pipelines": [
+        {
+          "id": "1411618c-7253-42b0-9be9-ba2815075b22",
+          "name": "deploy",
+          "description": "Placeholder UCD pipeline metadata; conversion is driven by tags.",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 1,
+          "version": 1,
+          "commit": 1,
+          "path": "applicationTemplates/sample/processes/deploy",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "a561d433-7639-40ea-b736-8bcb55293d28",
+            "securityResourceId": "4b435550-1783-4771-9520-54baba580d88",
+            "name": "Generic",
+            "description": "",
+            "created": 1760023871993,
+            "versionCount": 1,
+            "version": 1,
+            "path": "applicationTemplates/sample",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [],
+            "user": "sample_user",
+            "security": {
+              "read": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
