@@ -481,8 +481,8 @@ def main() -> None:
                 # globally unique service id: {App}_{Component}
                 svc_identifier = sanitize_identifier(f"{app_name}_{comp_name}")
 
-                #svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
-                svc = build_service_payload(comp_name, svc_identifier, comp_tags_map, deployment_type)
+                svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
+                #svc = build_service_payload(comp_name, svc_identifier, comp_tags_map, deployment_type)
                 svc_path = os.path.join(services_dir, f"{svc_identifier}.yaml")
                 write_yaml(svc_path, svc_yaml, args.org, args.project)
                 svc_count += 1; file_svcs += 1
