@@ -17,6 +17,9 @@ Examples:
 
 Examples
 --------
+# process specific files
+  python Scripts/ucd_to_harness.py --input ucd_input_files/a.json --input ucd_input_files/b.json --out harness_out --org my_org --project my_project
+  
 # Sweep a directory of UCD exports and group output per file
 python Scripts/ucd_to_harness.py \
   --input-dir ucd_input_files --recursive \
