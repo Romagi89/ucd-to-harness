@@ -1,26 +1,26 @@
 {
   "metadata": {
     "export_date": "2025-10-09T00:00:00Z",
-    "tool_version": "devops-sample-1.1",
+    "tool_version": "devops-sample-1.2",
     "total_applications": 1
   },
   "applications": [
     {
       "application": {
-        "id": "app-10001",
-        "securityResourceId": "secres-app-10001",
+        "id": "app-20001",
+        "securityResourceId": "secres-app-20001",
         "name": "NitroApp DevOps",
-        "description": "UCD sample that produces seven Harness stages via one component per stage.",
+        "description": "Seven components -> seven Harness stages. Force Kubernetes to avoid CustomDeployment.",
         "created": 1769971200000,
         "enforceCompleteSnapshots": false,
         "active": true,
         "tags": [
-          { "name": "language:java",   "objectType": "Application" },
-          { "name": "build:gradle",    "objectType": "Application" }
+          { "name": "language:java", "objectType": "Application" },
+          { "name": "build:gradle",  "objectType": "Application" }
         ],
         "deleted": false,
         "templateVersion": -1,
-        "templateId": "tmpl-app-10001",
+        "templateId": "tmpl-app-20001",
         "onlyChangedVersions": true,
         "useWizard": false,
         "user": "sample_user"
@@ -30,7 +30,7 @@
           "id": "comp-init",
           "securityResourceId": "secres-comp-init",
           "name": "init",
-          "description": "Init stage component",
+          "description": "Init stage",
           "created": 1769971200000,
           "componentType": "STANDARD",
           "ignoreQualifiers": 0,
@@ -44,10 +44,14 @@
           "cleanupCountToKeep": 0,
           "templateVersion": -1,
           "tags": [
-            { "name": "pipeline:init", "objectType": "Component" }
+            { "name": "pipeline:init", "objectType": "Component" },
+            { "name": "deploy:k8s",    "objectType": "Component" },
+            { "name": "k8s",           "objectType": "Component" }
           ],
           "templateTags": [
-            { "name": "pipeline:init", "objectType": "Component" }
+            { "name": "pipeline:init", "objectType": "Component" },
+            { "name": "deploy:k8s",    "objectType": "Component" },
+            { "name": "k8s",           "objectType": "Component" }
           ],
           "user": "sample_user"
         },
@@ -55,7 +59,7 @@
           "id": "comp-build",
           "securityResourceId": "secres-comp-build",
           "name": "build",
-          "description": "Build stage component",
+          "description": "Build stage",
           "created": 1769971200000,
           "componentType": "STANDARD",
           "ignoreQualifiers": 0,
@@ -69,12 +73,16 @@
           "cleanupCountToKeep": 0,
           "templateVersion": -1,
           "tags": [
-            { "name": "build:gradle", "objectType": "Component" },
-            { "name": "language:java", "objectType": "Component" }
+            { "name": "build:gradle",  "objectType": "Component" },
+            { "name": "language:java", "objectType": "Component" },
+            { "name": "deploy:k8s",    "objectType": "Component" },
+            { "name": "k8s",           "objectType": "Component" }
           ],
           "templateTags": [
-            { "name": "build:gradle", "objectType": "Component" },
-            { "name": "language:java", "objectType": "Component" }
+            { "name": "build:gradle",  "objectType": "Component" },
+            { "name": "language:java", "objectType": "Component" },
+            { "name": "deploy:k8s",    "objectType": "Component" },
+            { "name": "k8s",           "objectType": "Component" }
           ],
           "user": "sample_user"
         },
@@ -82,7 +90,7 @@
           "id": "comp-test",
           "securityResourceId": "secres-comp-test",
           "name": "test",
-          "description": "Test stage component",
+          "description": "Test stage",
           "created": 1769971200000,
           "componentType": "STANDARD",
           "ignoreQualifiers": 0,
@@ -96,10 +104,14 @@
           "cleanupCountToKeep": 0,
           "templateVersion": -1,
           "tags": [
-            { "name": "tests:junit", "objectType": "Component" }
+            { "name": "tests:junit", "objectType": "Component" },
+            { "name": "deploy:k8s",  "objectType": "Component" },
+            { "name": "k8s",         "objectType": "Component" }
           ],
           "templateTags": [
-            { "name": "tests:junit", "objectType": "Component" }
+            { "name": "tests:junit", "objectType": "Component" },
+            { "name": "deploy:k8s",  "objectType": "Component" },
+            { "name": "k8s",         "objectType": "Component" }
           ],
           "user": "sample_user"
         },
@@ -107,7 +119,7 @@
           "id": "comp-publish",
           "securityResourceId": "secres-comp-publish",
           "name": "publish",
-          "description": "Publish (artifact/image) stage component",
+          "description": "Publish stage",
           "created": 1769971200000,
           "componentType": "STANDARD",
           "ignoreQualifiers": 0,
@@ -121,126 +133,5 @@
           "cleanupCountToKeep": 0,
           "templateVersion": -1,
           "tags": [
-            { "name": "publish:docker", "objectType": "Component" }
-          ],
-          "templateTags": [
-            { "name": "publish:docker", "objectType": "Component" }
-          ],
-          "user": "sample_user"
-        },
-        {
-          "id": "comp-deploy",
-          "securityResourceId": "secres-comp-deploy",
-          "name": "deploy",
-          "description": "Deploy stage component (Kubernetes)",
-          "created": 1769971200000,
-          "componentType": "STANDARD",
-          "ignoreQualifiers": 0,
-          "importAutomatically": false,
-          "useVfs": true,
-          "active": true,
-          "integrationFailed": false,
-          "deleted": false,
-          "defaultVersionType": "FULL",
-          "cleanupDaysToKeep": 0,
-          "cleanupCountToKeep": 0,
-          "templateVersion": -1,
-          "tags": [
-            { "name": "deploy:k8s", "objectType": "Component" },
-            { "name": "k8s", "objectType": "Component" }
-          ],
-          "templateTags": [
-            { "name": "deploy:k8s", "objectType": "Component" },
-            { "name": "k8s", "objectType": "Component" }
-          ],
-          "user": "sample_user"
-        },
-        {
-          "id": "comp-verify",
-          "securityResourceId": "secres-comp-verify",
-          "name": "verify",
-          "description": "Verify (smoke/health) stage component",
-          "created": 1769971200000,
-          "componentType": "STANDARD",
-          "ignoreQualifiers": 0,
-          "importAutomatically": false,
-          "useVfs": true,
-          "active": true,
-          "integrationFailed": false,
-          "deleted": false,
-          "defaultVersionType": "FULL",
-          "cleanupDaysToKeep": 0,
-          "cleanupCountToKeep": 0,
-          "templateVersion": -1,
-          "tags": [
-            { "name": "verify:smoke", "objectType": "Component" }
-          ],
-          "templateTags": [
-            { "name": "verify:smoke", "objectType": "Component" }
-          ],
-          "user": "sample_user"
-        },
-        {
-          "id": "comp-notify",
-          "securityResourceId": "secres-comp-notify",
-          "name": "notify",
-          "description": "Notify stage component (Slack)",
-          "created": 1769971200000,
-          "componentType": "STANDARD",
-          "ignoreQualifiers": 0,
-          "importAutomatically": false,
-          "useVfs": true,
-          "active": true,
-          "integrationFailed": false,
-          "deleted": false,
-          "defaultVersionType": "FULL",
-          "cleanupDaysToKeep": 0,
-          "cleanupCountToKeep": 0,
-          "templateVersion": -1,
-          "tags": [
-            { "name": "notify:slack", "objectType": "Component" }
-          ],
-          "templateTags": [
-            { "name": "notify:slack", "objectType": "Component" }
-          ],
-          "user": "sample_user"
-        }
-      ],
-      "pipelines": [
-        {
-          "id": "pipe-10001",
-          "name": "deploy",
-          "description": "Placeholder UCD pipeline metadata; conversion is driven by components.",
-          "active": true,
-          "inventoryManagementType": "AUTOMATIC",
-          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
-          "versionCount": 1,
-          "version": 1,
-          "commit": 1,
-          "path": "applicationTemplates/sample/processes/deploy",
-          "deleted": false,
-          "metadataType": "applicationProcess",
-          "disableSnapshots": false,
-          "applicationTemplate": {
-            "id": "apptmpl-10001",
-            "securityResourceId": "secres-apptmpl-10001",
-            "name": "Generic",
-            "description": "",
-            "created": 1769971200000,
-            "versionCount": 1,
-            "version": 1,
-            "path": "applicationTemplates/sample",
-            "deleted": false,
-            "enforceCompleteSnapshots": false,
-            "onlyChangedVersions": true,
-            "useWizard": false,
-            "tags": [],
-            "tagRequirements": [],
-            "user": "sample_user",
-            "security": { "read": true }
-          }
-        }
-      ]
-    }
-  ]
-}
+            { "name": "publish:docker", "objectType": "Component" },
+            {
