@@ -8,8 +8,8 @@ pipeline:
     build: gradle
   stages:
   - stage:
-      name: Deploy init
-      identifier: Deploy_init
+      name: init
+      identifier: init
       type: Deployment
       spec:
         deploymentType: Kubernetes
@@ -40,8 +40,8 @@ pipeline:
           action:
             type: StageRollback
   - stage:
-      name: Deploy build
-      identifier: Deploy_build
+      name: build
+      identifier: build
       type: Deployment
       spec:
         deploymentType: Kubernetes
@@ -72,8 +72,8 @@ pipeline:
           action:
             type: StageRollback
   - stage:
-      name: Deploy test
-      identifier: Deploy_test
+      name: test
+      identifier: test
       type: Deployment
       spec:
         deploymentType: Kubernetes
@@ -104,8 +104,8 @@ pipeline:
           action:
             type: StageRollback
   - stage:
-      name: Deploy publish
-      identifier: Deploy_publish
+      name: publish
+      identifier: publish
       type: Deployment
       spec:
         deploymentType: Kubernetes
@@ -136,8 +136,8 @@ pipeline:
           action:
             type: StageRollback
   - stage:
-      name: Deploy deploy
-      identifier: Deploy_deploy
+      name: deploy
+      identifier: deploy
       type: Deployment
       spec:
         deploymentType: Kubernetes
@@ -168,8 +168,8 @@ pipeline:
           action:
             type: StageRollback
   - stage:
-      name: Deploy verify
-      identifier: Deploy_verify
+      name: verify
+      identifier: verify
       type: Deployment
       spec:
         deploymentType: Kubernetes
@@ -200,8 +200,8 @@ pipeline:
           action:
             type: StageRollback
   - stage:
-      name: Deploy notify
-      identifier: Deploy_notify
+      name: notify
+      identifier: notify
       type: Deployment
       spec:
         deploymentType: Kubernetes
