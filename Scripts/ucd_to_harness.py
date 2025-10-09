@@ -486,7 +486,8 @@ def main() -> None:
                 matched = match_stepgroups_for_component(app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
                 deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
 
-                stage_name = f"Deploy {comp_name}"
+                #stage_name = f"Deploy {comp_name}"
+                stage_name = comp_name
                 stage = build_stage_for_component(svc_identifier, stage_name, deployment_type, matched)
                 stages.append(stage)
 
