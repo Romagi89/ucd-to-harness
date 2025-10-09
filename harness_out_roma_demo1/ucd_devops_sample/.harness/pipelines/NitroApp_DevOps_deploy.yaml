@@ -12,7 +12,7 @@ pipeline:
       identifier: Deploy_init
       type: Deployment
       spec:
-        deploymentType: CustomDeployment
+        deploymentType: Kubernetes
         service:
           serviceRef: NitroApp_DevOps_init
         environment:
@@ -44,7 +44,7 @@ pipeline:
       identifier: Deploy_build
       type: Deployment
       spec:
-        deploymentType: CustomDeployment
+        deploymentType: Kubernetes
         service:
           serviceRef: NitroApp_DevOps_build
         environment:
@@ -76,7 +76,7 @@ pipeline:
       identifier: Deploy_test
       type: Deployment
       spec:
-        deploymentType: CustomDeployment
+        deploymentType: Kubernetes
         service:
           serviceRef: NitroApp_DevOps_test
         environment:
@@ -108,7 +108,7 @@ pipeline:
       identifier: Deploy_publish
       type: Deployment
       spec:
-        deploymentType: CustomDeployment
+        deploymentType: Kubernetes
         service:
           serviceRef: NitroApp_DevOps_publish
         environment:
@@ -172,7 +172,7 @@ pipeline:
       identifier: Deploy_verify
       type: Deployment
       spec:
-        deploymentType: CustomDeployment
+        deploymentType: Kubernetes
         service:
           serviceRef: NitroApp_DevOps_verify
         environment:
@@ -204,7 +204,7 @@ pipeline:
       identifier: Deploy_notify
       type: Deployment
       spec:
-        deploymentType: CustomDeployment
+        deploymentType: Kubernetes
         service:
           serviceRef: NitroApp_DevOps_notify
         environment:

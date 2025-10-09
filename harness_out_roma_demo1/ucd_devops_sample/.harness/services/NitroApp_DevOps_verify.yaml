@@ -5,6 +5,8 @@ service:
     language: java
     build: gradle
     verify: smoke
+    deploy: k8s
+    k8s: 'true'
   serviceDefinition:
     type: Custom
     spec:
