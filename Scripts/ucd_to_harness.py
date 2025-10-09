@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-UCD â†’ Harness NG converter (multi-file, clean YAML, reusable templates)
+UCD → Harness NG converter (multi-file, clean YAML, reusable templates)
 
 - Python 3.9+ compatible.
 - Accepts multiple --input files (repeatable or comma-separated) and/or --input-dir.
@@ -12,8 +12,6 @@ UCD â†’ Harness NG converter (multi-file, clean YAML, reusable templates)
 - Injects orgIdentifier / projectIdentifier into top-level entities.
 - Matches reusable StepGroup templates via .harness/template-registry.yaml.
 - Re-parses written YAML for quick validation.
-
-Examples:
 
 Examples
 --------
@@ -292,6 +290,31 @@ def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) 
         }
     }
 
+def _fetch_instance_step() -> Dict[str, Any]:
+    """PATCH: Required once per CustomDeployment stage to satisfy Harness validator."""
+    return {
+        "step": {
+            "name": "Fetch Instances",
+            "identifier": "Fetch_Instances",
+            "type": "FetchInstanceScript",
+            "timeout": "10m",
+            "spec": {
+                "shell": "Bash",
+                "onDelegate": True,
+                "source": {
+                    "type": "Inline",
+                    "spec": {
+                        # Minimal valid output; replace with real discovery as you implement
+                        "script": (
+                            'echo "Fetching instances for $HARNESS_SERVICE_NAME..."\n'
+                            'echo \'{"instances":[{"name":"sample-instance","id":"1"}]}\'\n'
+                        )
+                    }
+                }
+            }
+        }
+    }
+
 def build_stage_for_component(svc_identifier: str,
                               stage_name: str,
                               deployment_type: str,
@@ -324,6 +347,12 @@ def build_stage_for_component(svc_identifier: str,
         }
     }
     steps = stage["stage"]["spec"]["execution"]["steps"]
+
+    # --- PATCH: Inject exactly one FetchInstanceScript for CustomDeployment ---
+    if dt == "CustomDeployment":
+        steps.append(_fetch_instance_step())
+
+    # Matched reusable StepGroups from registry
     for sg in matched_stepgroups:
         sg_name = sg["name"]
         block = {
@@ -486,8 +515,7 @@ def main() -> None:
                 matched = match_stepgroups_for_component(app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
                 deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
 
-                #stage_name = f"Deploy {comp_name}"
-                stage_name = comp_name
+                stage_name = f"Deploy {comp_name}"
                 stage = build_stage_for_component(svc_identifier, stage_name, deployment_type, matched)
                 stages.append(stage)
 
