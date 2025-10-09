@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-UCD → Harness NG converter (multi-file, clean YAML, reusable templates)
+UCD â†’ Harness NG converter (multi-file, clean YAML, reusable templates)
 
 - Python 3.9+ compatible.
 - Accepts multiple --input files (repeatable or comma-separated) and/or --input-dir.
@@ -17,9 +17,6 @@ Examples:
 
 Examples
 --------
-# process specific files
-  python Scripts/ucd_to_harness.py --input ucd_input_files/a.json --input ucd_input_files/b.json --out harness_out --org my_org --project my_project
-  
 # Sweep a directory of UCD exports and group output per file
 python Scripts/ucd_to_harness.py \
   --input-dir ucd_input_files --recursive \
@@ -282,7 +279,7 @@ def match_stepgroups_for_component(app_name: str, comp_name: str,
 # Builders
 # --------------------------------------------------------------------
 def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) -> Dict[str, Any]:
-    #Keep "Custom" serviceDefinition for broad compatibility on import.
+    # Keep "Custom" serviceDefinition for broad compatibility on import.
     return {
         "service": {
             "name": sanitize_name(name),
@@ -482,14 +479,11 @@ def main() -> None:
                 svc_identifier = sanitize_identifier(f"{app_name}_{comp_name}")
 
                 svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
-                #svc = build_service_payload(comp_name, svc_identifier, comp_tags_map, deployment_type)
                 svc_path = os.path.join(services_dir, f"{svc_identifier}.yaml")
                 write_yaml(svc_path, svc_yaml, args.org, args.project)
                 svc_count += 1; file_svcs += 1
 
-                #matched = match_stepgroups_for_component(app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
-                matched = match_stepgroups_for_component(app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
-
+                matched = match_stepgroups_for_component(app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
                 deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
 
                 #stage_name = f"Deploy {comp_name}"
