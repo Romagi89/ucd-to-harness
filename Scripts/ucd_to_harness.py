@@ -281,51 +281,19 @@ def match_stepgroups_for_component(app_name: str, comp_name: str,
 # --------------------------------------------------------------------
 # Builders
 # --------------------------------------------------------------------
-#def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) -> Dict[str, Any]:
-    # Keep "Custom" serviceDefinition for broad compatibility on import.
- #   return {
- #       "service": {
- #           "name": sanitize_name(name),
- #           "identifier": sanitize_identifier(identifier),
-  #          "tags": tags_map or {},
-   #         "serviceDefinition": {
-    #            "type": "Custom",
-     #           "spec": {"variables": []}
-      #      }
-       # }
-    #}
-#Mod for service
-def build_service_payload(
-    name: str,
-    identifier: str,
-    tags_map: Dict[str, str],
-    deployment_type: str   # <- NEW PARAM
-) -> Dict[str, Any]:
-    svc_type_map = {
-        "Kubernetes": "KUBERNETES",
-        "NativeHelm": "NATIVE_HELM",
-        "SSH": "SSH",
-        "WinRm": "WINRM",
-        "TAS": "TAS",
-        "ECS": "ECS",
-        "AWS_SAM": "AWS_SAM",
-        "ServerlessAwsLambda": "SERVERLESS_AWS_LAMBDA",
-        "Custom": "CUSTOM_DEPLOYMENT"   # valid fallback
-    }
-    service_type = svc_type_map.get(deployment_type, "CUSTOM_DEPLOYMENT")
-
+def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) -> Dict[str, Any]:
+    #Keep "Custom" serviceDefinition for broad compatibility on import.
     return {
         "service": {
             "name": sanitize_name(name),
             "identifier": sanitize_identifier(identifier),
             "tags": tags_map or {},
             "serviceDefinition": {
-                "type": service_type,
+                "type": "Custom",
                 "spec": {"variables": []}
             }
         }
     }
-##End of mod for service
 
 def build_stage_for_component(svc_identifier: str,
                               stage_name: str,
