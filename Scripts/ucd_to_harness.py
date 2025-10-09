@@ -299,9 +299,8 @@ def build_service_payload(
     name: str,
     identifier: str,
     tags_map: Dict[str, str],
-    deployment_type: str  # <-- NEW
+    deployment_type: str   # <- NEW PARAM
 ) -> Dict[str, Any]:
-    # Map the stage-level deployment type to Harness serviceDefinition.type
     svc_type_map = {
         "Kubernetes": "KUBERNETES",
         "NativeHelm": "NATIVE_HELM",
@@ -311,8 +310,7 @@ def build_service_payload(
         "ECS": "ECS",
         "AWS_SAM": "AWS_SAM",
         "ServerlessAwsLambda": "SERVERLESS_AWS_LAMBDA",
-        # If the tool falls back to "Custom", emit a valid enum:
-        "Custom": "CUSTOM_DEPLOYMENT"
+        "Custom": "CUSTOM_DEPLOYMENT"   # valid fallback
     }
     service_type = svc_type_map.get(deployment_type, "CUSTOM_DEPLOYMENT")
 
@@ -521,7 +519,9 @@ def main() -> None:
                 write_yaml(svc_path, svc_yaml, args.org, args.project)
                 svc_count += 1; file_svcs += 1
 
-                matched = match_stepgroups_for_component(app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
+                #matched = match_stepgroups_for_component(app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
+                matched = match_stepgroups_for_component(app_tags_flat, comp_tags_flat, registry, first_match=args.first_match)
+
                 deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
 
                 #stage_name = f"Deploy {comp_name}"
