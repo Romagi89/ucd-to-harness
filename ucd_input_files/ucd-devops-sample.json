@@ -134,4 +134,137 @@
           "templateVersion": -1,
           "tags": [
             { "name": "publish:docker", "objectType": "Component" },
-            {
+            { "name": "deploy:k8s",     "objectType": "Component" },
+            { "name": "k8s",            "objectType": "Component" }
+          ],
+          "templateTags": [
+            { "name": "publish:docker", "objectType": "Component" },
+            { "name": "deploy:k8s",     "objectType": "Component" },
+            { "name": "k8s",            "objectType": "Component" }
+          ],
+          "user": "sample_user"
+        },
+        {
+          "id": "comp-deploy",
+          "securityResourceId": "secres-comp-deploy",
+          "name": "deploy",
+          "description": "Deploy stage (Kubernetes)",
+          "created": 1769971200000,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            { "name": "deploy:k8s", "objectType": "Component" },
+            { "name": "k8s",        "objectType": "Component" }
+          ],
+          "templateTags": [
+            { "name": "deploy:k8s", "objectType": "Component" },
+            { "name": "k8s",        "objectType": "Component" }
+          ],
+          "user": "sample_user"
+        },
+        {
+          "id": "comp-verify",
+          "securityResourceId": "secres-comp-verify",
+          "name": "verify",
+          "description": "Verify stage",
+          "created": 1769971200000,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            { "name": "verify:smoke", "objectType": "Component" },
+            { "name": "deploy:k8s",   "objectType": "Component" },
+            { "name": "k8s",          "objectType": "Component" }
+          ],
+          "templateTags": [
+            { "name": "verify:smoke", "objectType": "Component" },
+            { "name": "deploy:k8s",   "objectType": "Component" },
+            { "name": "k8s",          "objectType": "Component" }
+          ],
+          "user": "sample_user"
+        },
+        {
+          "id": "comp-notify",
+          "securityResourceId": "secres-comp-notify",
+          "name": "notify",
+          "description": "Notify stage",
+          "created": 1769971200000,
+          "componentType": "STANDARD",
+          "ignoreQualifiers": 0,
+          "importAutomatically": false,
+          "useVfs": true,
+          "active": true,
+          "integrationFailed": false,
+          "deleted": false,
+          "defaultVersionType": "FULL",
+          "cleanupDaysToKeep": 0,
+          "cleanupCountToKeep": 0,
+          "templateVersion": -1,
+          "tags": [
+            { "name": "notify:slack", "objectType": "Component" },
+            { "name": "deploy:k8s",   "objectType": "Component" },
+            { "name": "k8s",          "objectType": "Component" }
+          ],
+          "templateTags": [
+            { "name": "notify:slack", "objectType": "Component" },
+            { "name": "deploy:k8s",   "objectType": "Component" },
+            { "name": "k8s",          "objectType": "Component" }
+          ],
+          "user": "sample_user"
+        }
+      ],
+      "pipelines": [
+        {
+          "id": "pipe-20001",
+          "name": "deploy",
+          "description": "Components drive stage creation; Kubernetes forced via tags.",
+          "active": true,
+          "inventoryManagementType": "AUTOMATIC",
+          "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+          "versionCount": 1,
+          "version": 1,
+          "commit": 1,
+          "path": "applicationTemplates/sample/processes/deploy",
+          "deleted": false,
+          "metadataType": "applicationProcess",
+          "disableSnapshots": false,
+          "applicationTemplate": {
+            "id": "apptmpl-20001",
+            "securityResourceId": "secres-apptmpl-20001",
+            "name": "Generic",
+            "description": "",
+            "created": 1769971200000,
+            "versionCount": 1,
+            "version": 1,
+            "path": "applicationTemplates/sample",
+            "deleted": false,
+            "enforceCompleteSnapshots": false,
+            "onlyChangedVersions": true,
+            "useWizard": false,
+            "tags": [],
+            "tagRequirements": [],
+            "user": "sample_user",
+            "security": { "read": true }
+          }
+        }
+      ]
+    }
+  ]
+}
