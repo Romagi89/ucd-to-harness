@@ -1,0 +1,12 @@
+service:
+  name: orderops-config
+  identifier: OrderOps_orderops_config
+  tags:
+    runtime: dotnet
+    Windows_Config_Deploy: 'true'
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
