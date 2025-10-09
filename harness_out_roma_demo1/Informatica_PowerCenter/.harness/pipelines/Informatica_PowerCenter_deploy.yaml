@@ -1,0 +1,137 @@
+pipeline:
+  name: Informatica PowerCenter deploy
+  identifier: Informatica_PowerCenter_deploy
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
+  tags:
+    bsa: Enterprise Data Office
+    ci_name: Informatica PowerCenter
+  stages:
+  - stage:
+      name: 1930_DPS_Import_Objects
+      identifier: 1930_DPS_Import_Objects
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: Informatica_PowerCenter_1930_DPS_Import_Objects
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: 1930_Informatica_PowerCenter_DeploymentGroup
+      identifier: 1930_Informatica_PowerCenter_DeploymentGroup
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: Informatica_PowerCenter_1930_Informatica_PowerCenter_DeploymentGroup
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: 1930_DPS_Folder_Migration
+      identifier: 1930_DPS_Folder_Migration
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: Informatica_PowerCenter_1930_DPS_Folder_Migration
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: 1930_DPS_Deploy_Multiple_Deployment_Groups
+      identifier: 1930_DPS_Deploy_Multiple_Deployment_Groups
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: Informatica_PowerCenter_1930_DPS_Deploy_Multiple_Deployment_Groups
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback

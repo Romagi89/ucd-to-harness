@@ -1,0 +1,136 @@
+pipeline:
+  name: OrderOps deploy
+  identifier: OrderOps_deploy
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
+  tags:
+    runtime: dotnet
+  stages:
+  - stage:
+      name: orderops-web
+      identifier: orderops_web
+      type: Deployment
+      spec:
+        deploymentType: WinRm
+        service:
+          serviceRef: OrderOps_orderops_web
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: orderops-worker
+      identifier: orderops_worker
+      type: Deployment
+      spec:
+        deploymentType: WinRm
+        service:
+          serviceRef: OrderOps_orderops_worker
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: orderops-agent
+      identifier: orderops_agent
+      type: Deployment
+      spec:
+        deploymentType: WinRm
+        service:
+          serviceRef: OrderOps_orderops_agent
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: orderops-config
+      identifier: orderops_config
+      type: Deployment
+      spec:
+        deploymentType: WinRm
+        service:
+          serviceRef: OrderOps_orderops_config
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
