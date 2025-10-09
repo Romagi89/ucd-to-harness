@@ -1,0 +1,17 @@
+service:
+  name: nitro-web
+  identifier: NitroApp_DevOps_nitro_web
+  tags:
+    pipeline: init
+    build: gradle
+    tests: junit
+    publish: docker
+    deploy: k8s
+    verify: smoke
+    notify: slack
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG

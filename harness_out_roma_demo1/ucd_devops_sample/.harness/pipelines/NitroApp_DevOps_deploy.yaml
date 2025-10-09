@@ -1,0 +1,46 @@
+pipeline:
+  name: NitroApp DevOps deploy
+  identifier: NitroApp_DevOps_deploy
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
+  tags:
+    pipeline: init
+    build: gradle
+    tests: junit
+    publish: docker
+    deploy: k8s
+    verify: smoke
+    notify: slack
+  stages:
+  - stage:
+      name: Deploy nitro-web
+      identifier: Deploy_nitro_web
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_nitro_web
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
