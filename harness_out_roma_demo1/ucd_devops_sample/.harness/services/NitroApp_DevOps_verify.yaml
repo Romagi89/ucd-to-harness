@@ -1,0 +1,13 @@
+service:
+  name: verify
+  identifier: NitroApp_DevOps_verify
+  tags:
+    language: java
+    build: gradle
+    verify: smoke
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG

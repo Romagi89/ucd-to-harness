@@ -1,0 +1,13 @@
+service:
+  name: init
+  identifier: NitroApp_DevOps_init
+  tags:
+    language: java
+    build: gradle
+    pipeline: init
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG

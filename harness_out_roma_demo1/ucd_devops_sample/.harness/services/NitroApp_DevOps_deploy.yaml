@@ -1,14 +1,11 @@
 service:
-  name: nitro-web
-  identifier: NitroApp_DevOps_nitro_web
+  name: deploy
+  identifier: NitroApp_DevOps_deploy
   tags:
-    pipeline: init
+    language: java
     build: gradle
-    tests: junit
-    publish: docker
     deploy: k8s
-    verify: smoke
-    notify: slack
+    k8s: 'true'
   serviceDefinition:
     type: Custom
     spec:

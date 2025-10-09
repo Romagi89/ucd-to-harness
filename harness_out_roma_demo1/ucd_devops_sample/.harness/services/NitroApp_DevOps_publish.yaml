@@ -1,0 +1,13 @@
+service:
+  name: publish
+  identifier: NitroApp_DevOps_publish
+  tags:
+    language: java
+    build: gradle
+    publish: docker
+  serviceDefinition:
+    type: Custom
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG

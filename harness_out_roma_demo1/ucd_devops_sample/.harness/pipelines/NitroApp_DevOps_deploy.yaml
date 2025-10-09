@@ -4,22 +4,209 @@ pipeline:
   orgIdentifier: default
   projectIdentifier: UCDHarnessRG
   tags:
-    pipeline: init
+    language: java
     build: gradle
-    tests: junit
-    publish: docker
-    deploy: k8s
-    verify: smoke
-    notify: slack
   stages:
   - stage:
-      name: Deploy nitro-web
-      identifier: Deploy_nitro_web
+      name: Deploy init
+      identifier: Deploy_init
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: NitroApp_DevOps_init
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: Deploy build
+      identifier: Deploy_build
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: NitroApp_DevOps_build
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: Deploy test
+      identifier: Deploy_test
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: NitroApp_DevOps_test
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: Deploy publish
+      identifier: Deploy_publish
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: NitroApp_DevOps_publish
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: Deploy deploy
+      identifier: Deploy_deploy
       type: Deployment
       spec:
         deploymentType: Kubernetes
         service:
-          serviceRef: NitroApp_DevOps_nitro_web
+          serviceRef: NitroApp_DevOps_deploy
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: Deploy verify
+      identifier: Deploy_verify
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: NitroApp_DevOps_verify
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: Deploy notify
+      identifier: Deploy_notify
+      type: Deployment
+      spec:
+        deploymentType: CustomDeployment
+        service:
+          serviceRef: NitroApp_DevOps_notify
         environment:
           environmentRef: <+input>
           deployToAll: true
