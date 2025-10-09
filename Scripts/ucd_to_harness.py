@@ -281,19 +281,53 @@ def match_stepgroups_for_component(app_name: str, comp_name: str,
 # --------------------------------------------------------------------
 # Builders
 # --------------------------------------------------------------------
-def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) -> Dict[str, Any]:
+#def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) -> Dict[str, Any]:
     # Keep "Custom" serviceDefinition for broad compatibility on import.
+ #   return {
+ #       "service": {
+ #           "name": sanitize_name(name),
+ #           "identifier": sanitize_identifier(identifier),
+  #          "tags": tags_map or {},
+   #         "serviceDefinition": {
+    #            "type": "Custom",
+     #           "spec": {"variables": []}
+      #      }
+       # }
+    #}
+#Mod for service
+def build_service_payload(
+    name: str,
+    identifier: str,
+    tags_map: Dict[str, str],
+    deployment_type: str  # <-- NEW
+) -> Dict[str, Any]:
+    # Map the stage-level deployment type to Harness serviceDefinition.type
+    svc_type_map = {
+        "Kubernetes": "KUBERNETES",
+        "NativeHelm": "NATIVE_HELM",
+        "SSH": "SSH",
+        "WinRm": "WINRM",
+        "TAS": "TAS",
+        "ECS": "ECS",
+        "AWS_SAM": "AWS_SAM",
+        "ServerlessAwsLambda": "SERVERLESS_AWS_LAMBDA",
+        # If the tool falls back to "Custom", emit a valid enum:
+        "Custom": "CUSTOM_DEPLOYMENT"
+    }
+    service_type = svc_type_map.get(deployment_type, "CUSTOM_DEPLOYMENT")
+
     return {
         "service": {
             "name": sanitize_name(name),
             "identifier": sanitize_identifier(identifier),
             "tags": tags_map or {},
             "serviceDefinition": {
-                "type": "Custom",
+                "type": service_type,
                 "spec": {"variables": []}
             }
         }
     }
+##End of mod for service
 
 def build_stage_for_component(svc_identifier: str,
                               stage_name: str,
@@ -481,7 +515,8 @@ def main() -> None:
                 # globally unique service id: {App}_{Component}
                 svc_identifier = sanitize_identifier(f"{app_name}_{comp_name}")
 
-                svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
+                #svc_yaml = build_service_payload(comp_name, svc_identifier, {**app_tags_map, **comp_tags_map})
+                svc = build_service_payload(comp_name, svc_identifier, comp_tags_map, deployment_type)
                 svc_path = os.path.join(services_dir, f"{svc_identifier}.yaml")
                 write_yaml(svc_path, svc_yaml, args.org, args.project)
                 svc_count += 1; file_svcs += 1
