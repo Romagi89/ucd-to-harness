@@ -7,7 +7,7 @@ service:
     deploy: k8s
     k8s: 'true'
   serviceDefinition:
-    type: KUBERNETES
+    type: Kubernetes
     spec:
       variables: []
   orgIdentifier: default
