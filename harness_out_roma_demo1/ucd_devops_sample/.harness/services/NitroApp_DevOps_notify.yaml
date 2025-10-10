@@ -1,0 +1,15 @@
+service:
+  name: notify
+  identifier: NitroApp_DevOps_notify
+  tags:
+    language: java
+    build: gradle
+    notify: slack
+    deploy: k8s
+    k8s: 'true'
+  serviceDefinition:
+    type: KUBERNETES
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
