@@ -301,7 +301,7 @@ def build_service_payload(
 ) -> Dict[str, Any]:
     # Map stage deployment type -> Harness serviceDefinition.type enum
     svc_type_map = {
-        "Kubernetes": "KUBERNETES",
+        "Kubernetes": "Kubernetes",
         "NativeHelm": "NATIVE_HELM",
         "SSH": "SSH",
         "WinRm": "WINRM",
