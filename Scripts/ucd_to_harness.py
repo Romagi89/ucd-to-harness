@@ -278,6 +278,7 @@ def match_stepgroups_for_component(app_name: str, comp_name: str,
 # --------------------------------------------------------------------
 # Builders
 # --------------------------------------------------------------------
+"""
 def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) -> Dict[str, Any]:
     # Keep "Custom" serviceDefinition for broad compatibility on import.
     return {
@@ -288,6 +289,41 @@ def build_service_payload(name: str, identifier: str, tags_map: Dict[str, str]) 
             "serviceDefinition": {
                 "type": "Custom",
                 "spec": {"variables": []}
+            }
+        }
+    }
+"""
+def build_service_payload(
+    name: str,
+    identifier: str,
+    tags_map: Dict[str, str],
+    deployment_type: str,  # NEW param: match stage type
+) -> Dict[str, Any]:
+    # Map stage deployment type -> Harness serviceDefinition.type enum
+    svc_type_map = {
+        "Kubernetes": "KUBERNETES",
+        "NativeHelm": "NATIVE_HELM",
+        "SSH": "SSH",
+        "WinRm": "WINRM",
+        "TAS": "TAS",
+        "ECS": "ECS",
+        "AzureWebApp": "AZURE_WEBAPP",
+        "ServerlessAwsLambda": "SERVERLESS_AWS_LAMBDA",
+        "GoogleCloudRun": "GOOGLE_CLOUD_RUN",
+        # fallback used by infer_deployment_type():
+        "CustomDeployment": "CUSTOM_DEPLOYMENT",
+        "Custom": "CUSTOM_DEPLOYMENT",
+    }
+    service_type = svc_type_map.get(deployment_type, "CUSTOM_DEPLOYMENT")
+
+    return {
+        "service": {
+            "name": sanitize_name(name),
+            "identifier": sanitize_identifier(identifier),
+            "tags": tags_map or {},
+            "serviceDefinition": {
+                "type": service_type,
+                "spec": { "variables": [] }
             }
         }
     }
@@ -475,6 +511,7 @@ def main() -> None:
                 comp_tags_flat = collect_tags_flat(comp.get("tags") or [])
                 comp_tags_map  = collect_tags_map(comp.get("tags") or [])
 
+                """
                 # globally unique service id: {App}_{Component}
                 svc_identifier = sanitize_identifier(f"{app_name}_{comp_name}")
 
@@ -487,6 +524,32 @@ def main() -> None:
                 deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
 
                 #stage_name = f"Deploy {comp_name}"
+                stage_name = comp_name
+                stage = build_stage_for_component(svc_identifier, stage_name, deployment_type, matched)
+                stages.append(stage)
+                """
+                # globally unique service id: {App}_{Component}
+                svc_identifier = sanitize_identifier(f"{app_name}_{comp_name}")
+                
+                # infer deployment type FIRST so service + stage stay consistent
+                matched = match_stepgroups_for_component(
+                    app_name, comp_name, app_tags_flat, comp_tags_flat, registry, first_match=args.first_match
+                )
+                deployment_type = infer_deployment_type(app_tags_flat, comp_tags_flat)
+                
+                # serviceDefinition.type now mirrors the stage type (e.g., KUBERNETES)
+                svc_yaml = build_service_payload(
+                    comp_name,
+                    svc_identifier,
+                    {**app_tags_map, **comp_tags_map},
+                    deployment_type
+                )
+                svc_path = os.path.join(services_dir, f"{svc_identifier}.yaml")
+                write_yaml(svc_path, svc_yaml, args.org, args.project)
+                svc_count += 1; file_svcs += 1
+                
+                # stage name — keep as-is or drop the "Deploy " prefix if you want plain names
+                #stage_name = f"Deploy {comp_name}"   # change to: stage_name = comp_name  (if you don't want "Deploy ")
                 stage_name = comp_name
                 stage = build_stage_for_component(svc_identifier, stage_name, deployment_type, matched)
                 stages.append(stage)
