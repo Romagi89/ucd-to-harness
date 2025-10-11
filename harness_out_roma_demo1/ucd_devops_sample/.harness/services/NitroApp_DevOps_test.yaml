@@ -1,0 +1,15 @@
+service:
+  name: test
+  identifier: NitroApp_DevOps_test
+  tags:
+    language: java
+    build: gradle
+    tests: junit
+    deploy: k8s
+    k8s: 'true'
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
