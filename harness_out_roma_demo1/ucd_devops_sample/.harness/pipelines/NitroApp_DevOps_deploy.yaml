@@ -1,0 +1,233 @@
+pipeline:
+  name: NitroApp DevOps deploy
+  identifier: NitroApp_DevOps_deploy
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
+  tags:
+    language: java
+    build: gradle
+  stages:
+  - stage:
+      name: init
+      identifier: init
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_init
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: build
+      identifier: build
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_build
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: test
+      identifier: test
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_test
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: publish
+      identifier: publish
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_publish
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: deploy
+      identifier: deploy
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_deploy
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: verify
+      identifier: verify
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_verify
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
+  - stage:
+      name: notify
+      identifier: notify
+      type: Deployment
+      spec:
+        deploymentType: Kubernetes
+        service:
+          serviceRef: NitroApp_DevOps_notify
+        environment:
+          environmentRef: <+input>
+          deployToAll: true
+          infrastructureDefinitions:
+          - identifier: input
+        execution:
+          steps:
+          - step:
+              name: Deploy
+              identifier: Deploy
+              type: ShellScript
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: 'echo TODO: implement deployment'
+      failureStrategies:
+      - onFailure:
+          errors:
+          - AllErrors
+          action:
+            type: StageRollback
