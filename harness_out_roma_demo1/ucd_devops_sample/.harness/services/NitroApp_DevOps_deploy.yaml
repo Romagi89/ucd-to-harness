@@ -1,0 +1,14 @@
+service:
+  name: deploy
+  identifier: NitroApp_DevOps_deploy
+  tags:
+    language: java
+    build: gradle
+    deploy: k8s
+    k8s: 'true'
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      variables: []
+  orgIdentifier: default
+  projectIdentifier: UCDHarnessRG
